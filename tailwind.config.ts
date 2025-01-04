@@ -25,9 +25,9 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         game: {
-          solar: "#FFD700",
-          wind: "#87CEEB",
-          nuclear: "#4CAF50",
+          solar: "#FEC6A1",
+          wind: "#D3E4FD",
+          nuclear: "#E5DEFF",
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",
