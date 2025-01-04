@@ -93,27 +93,32 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6">
+    <div className="w-full">
       <EnergyChart
         solar={targetCountry.energyMix.solar}
         wind={targetCountry.energyMix.wind}
         nuclear={targetCountry.energyMix.nuclear}
       />
       
-      <div className="mt-6">
-        <div className="flex gap-2">
+      <div className="mt-6 space-y-4">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Input
             value={currentGuess}
             onChange={(e) => setCurrentGuess(e.target.value)}
             placeholder="Enter country name"
             disabled={gameOver}
+            className="flex-1"
           />
-          <Button onClick={handleGuess} disabled={gameOver || !currentGuess}>
+          <Button 
+            onClick={handleGuess} 
+            disabled={gameOver || !currentGuess}
+            className="w-full sm:w-auto"
+          >
             Guess
           </Button>
         </div>
         
-        <div className="mt-2 text-sm text-gray-500">
+        <div className="text-sm text-muted-foreground">
           {5 - guesses.length} guesses remaining
         </div>
 

@@ -18,19 +18,19 @@ const GuessList = ({ guesses }: GuessListProps) => {
       "NW": ArrowUpLeft,
     };
     const Arrow = arrows[direction as keyof typeof arrows];
-    return Arrow ? <Arrow className="w-6 h-6" /> : null;
+    return Arrow ? <Arrow className="h-4 w-4 sm:h-6 sm:w-6" /> : null;
   };
 
   return (
-    <div className="space-y-2 mt-4">
+    <div className="space-y-2">
       {guesses.map((guess, index) => (
         <div
           key={index}
-          className="flex items-center justify-between p-3 bg-white rounded-lg shadow animate-fade-in"
+          className="flex items-center justify-between p-3 bg-card rounded-lg shadow-sm animate-fade-in border border-border/50"
         >
-          <span className="font-medium">{guess.country}</span>
-          <div className="flex items-center gap-4">
-            <span>{Math.round(guess.distance)}km</span>
+          <span className="font-medium text-sm sm:text-base">{guess.country}</span>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <span className="text-sm sm:text-base">{Math.round(guess.distance)}km</span>
             {getDirectionArrow(guess.direction)}
           </div>
         </div>
