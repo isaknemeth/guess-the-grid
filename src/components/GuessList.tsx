@@ -35,10 +35,12 @@ const GuessList = ({ guesses }: GuessListProps) => {
           )}
         >
           <span className="font-medium text-sm sm:text-base">{guess.country}</span>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <span className="text-sm sm:text-base">{Math.round(guess.distance)}km</span>
-            {getDirectionArrow(guess.direction)}
-          </div>
+          {!guess.isCorrect && (
+            <div className="flex items-center gap-2 sm:gap-4">
+              <span className="text-sm sm:text-base">{Math.round(guess.distance)}km</span>
+              {getDirectionArrow(guess.direction)}
+            </div>
+          )}
         </div>
       ))}
     </div>

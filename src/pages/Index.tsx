@@ -1,8 +1,9 @@
 import PowerGuessGame from "@/components/PowerGuessGame";
 import { Button } from "@/components/ui/button";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Info} from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import countriesData from "@/data/countries.json";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 // Extended dataset with more countries
 // Convert the dataset to the required format
@@ -26,7 +27,7 @@ const countries = Object.keys(countriesData).map((countryName) => {
   };
 });
 
-const getRandomCountry = () => {
+export const getRandomCountry = () => {
   const randomIndex = Math.floor(Math.random() * countries.length);
   return countries[randomIndex];
 };
@@ -57,6 +58,25 @@ const Index = () => {
         </Button>
       </div>
 
+      {/* Info Button */}
+      <div className="fixed top-4 left-4 z-50">
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="icon" className="rounded-full">
+              <Info className="h-5 w-5" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+          <p className="font-medium">About Power_Guessr</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Welcome to Power_Guessr! Your goal is to guess the country based on its electricity generation. You have 5 guesses to find the correct country.
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+            Distances are calculated to a central point in the country, not necessarily the closest one. All data is from 2022.
+            </p>
+          </PopoverContent>
+        </Popover>
+      </div>
       <div className="container max-w-5xl mx-auto px-4 py-8 md:py-12">
         {/* Header */}
         <div className="text-center space-y-4 mb-8 md:mb-12">

@@ -15,7 +15,7 @@ interface EnergyChartProps {
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white/90 backdrop-blur-sm p-2 rounded-lg shadow-lg border border-gray-200">
+      <div className="bg-white/90 backdrop-blur-sm p-2 rounded-lg shadow-lg border border-gray-200 text-black">
         <p className="font-medium">{`${payload[0].name}: ${payload[0].value}%`}</p>
       </div>
     );
@@ -24,32 +24,46 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 const EnergyChart = ({ solar, wind, hydro, other_renewables, nuclear, oil, gas, coal, biofuel }: EnergyChartProps) => {
-  const data = [
-    { name: "Solar", value: solar || 0, color: "#FFD700"},
-    { name: "Wind", value: wind || 0, color: "#D3E4FD" },
-    { name: "Hydro", value: hydro || 0, color: "#00CED1" },
-    { name: "Other Renewables", value: other_renewables || 0, color: "#8FBC8F" },
-    { name: "Nuclear", value: nuclear || 0, color: "#E5DEFF"},
-    { name: "Oil", value: oil || 0, color: "#252252" },
-    { name: "Gas", value: gas || 0, color: "#5B7876" },
-    { name: "Coal", value: coal || 0, color: "#292929" },
-    { name: "Biofuel", value: biofuel || 0, color: "#806626" },
+  const rawData = [
+    { name: "Solar", value: parseFloat((solar || 0).toFixed(1)), color: "#FFD700"},
+    { name: "Wind", value: parseFloat((wind || 0).toFixed(1)), color: "#C2E4FD" },
+    { name: "Hydro", value: parseFloat((hydro || 0).toFixed(1)), color: "#00A1E6" },
+    { name: "Other Renewables", value: parseFloat((other_renewables || 0).toFixed(1)), color: "#8FBC8F" },
+    { name: "Nuclear", value: parseFloat((nuclear || 0).toFixed(1)), color: "#AC8EF9"},
+    { name: "Oil", value: parseFloat((oil || 0).toFixed(1)), color: "#000000" },
+    { name: "Gas", value: parseFloat((gas || 0).toFixed(1)), color: "#5B7876" },
+    { name: "Coal", value: parseFloat((coal || 0).toFixed(1)), color: "#808080" },
+    { name: "Biofuel", value: parseFloat((biofuel || 0).toFixed(1)), color: "#806626" },
   ];
+
+  const groupedData = rawData.reduce((acc, entry) => {
+    if (entry.value > 0 && entry.value < 1) {
+      const other = acc.find(item => item.name === "Other");
+      if (other) {
+        other.value = parseFloat((other.value + entry.value).toFixed(1));
+      } else {
+        acc.push({ name: "Other", value: parseFloat(entry.value.toFixed(1)), color: "#CCCCCC" });
+      }
+    } else {
+      acc.push(entry);
+    }
+    return acc;
+  }, []);
 
   return (
     <div className="w-full h-[300px] mt-4">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
-            data={data}
+            data={groupedData}
             cx="50%"
             cy="50%"
             labelLine={false}
-            outerRadius={80}
+            outerRadius={110}
             fill="#8884d8"
             dataKey="value"
           >
-            {data.map((entry, index) => (
+            {groupedData.map((entry, index) => (
               <Cell 
                 key={`cell-${index}`} 
                 fill={entry.color}

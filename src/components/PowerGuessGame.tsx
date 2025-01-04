@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import EnergyChart from "./EnergyChart";
 import GuessList from "./GuessList";
+import { getRandomCountry } from "@/pages/Index";
+
 import { CountryData, GuessResult } from "@/types/game";
 import {
   Command,
@@ -17,20 +19,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Check } from "lucide-react";
+import { Check, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+
 
 interface PowerGuessGameProps {
   targetCountry: CountryData;
   countries: CountryData[];
 }
 
-const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
+const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: PowerGuessGameProps) => {
   const [guesses, setGuesses] = useState<GuessResult[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [targetCountry, setTargetCountry] = useState<CountryData>(initialTargetCountry)
   const { toast } = useToast();
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
@@ -114,6 +118,15 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
     }
   };
 
+  const resetGame = () => {
+    setGuesses([]);
+    setCurrentGuess("");
+    setSearchValue("");
+    setGameOver(false);
+    setOpen(false);
+    setTargetCountry(getRandomCountry());
+  };
+
   const filteredCountries = countries.filter((country) =>
     country.name.toLowerCase().includes(searchValue.toLowerCase())
   );
@@ -187,6 +200,18 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
         </div>
 
         <GuessList guesses={guesses} />
+
+        {gameOver && (
+          <div className="text-center mt-4">
+            <div className="text-sm text-muted-foreground mb-2">
+              The correct country was {targetCountry.name}.
+            </div>
+            <Button variant="outline" onClick={resetGame} className="flex items-center justify-center gap-2">
+              <RotateCcw className="h-4 w-4" />
+              Play Again
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
