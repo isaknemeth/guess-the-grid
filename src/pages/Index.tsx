@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 
-// This is a placeholder for your JSON data
+// Extended dataset with more countries
 const sampleData = {
   targetCountry: {
     name: "France",
@@ -26,7 +26,56 @@ const sampleData = {
         nuclear: 70,
       },
     },
-    // Add more countries here
+    {
+      name: "Germany",
+      latitude: 51.1657,
+      longitude: 10.4515,
+      energyMix: {
+        solar: 25,
+        wind: 45,
+        nuclear: 30,
+      },
+    },
+    {
+      name: "Spain",
+      latitude: 40.4637,
+      longitude: -3.7492,
+      energyMix: {
+        solar: 40,
+        wind: 35,
+        nuclear: 25,
+      },
+    },
+    {
+      name: "Sweden",
+      latitude: 60.1282,
+      longitude: 18.6435,
+      energyMix: {
+        solar: 5,
+        wind: 30,
+        nuclear: 65,
+      },
+    },
+    {
+      name: "Italy",
+      latitude: 41.8719,
+      longitude: 12.5674,
+      energyMix: {
+        solar: 35,
+        wind: 40,
+        nuclear: 25,
+      },
+    },
+    {
+      name: "Netherlands",
+      latitude: 52.1326,
+      longitude: 5.2913,
+      energyMix: {
+        solar: 20,
+        wind: 50,
+        nuclear: 30,
+      },
+    }
   ],
 };
 

@@ -5,6 +5,20 @@ import { useToast } from "@/components/ui/use-toast";
 import EnergyChart from "./EnergyChart";
 import GuessList from "./GuessList";
 import { CountryData, GuessResult } from "@/types/game";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PowerGuessGameProps {
   targetCountry: CountryData;
@@ -15,10 +29,11 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
   const [guesses, setGuesses] = useState<GuessResult[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  const [open, setOpen] = useState(false);
   const { toast } = useToast();
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    const R = 6371; // Earth's radius in km
+    const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = 
@@ -40,13 +55,13 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
     return directions[index];
   };
 
-  const handleGuess = () => {
-    const guessCountry = countries.find(c => c.name.toLowerCase() === currentGuess.toLowerCase());
+  const handleGuess = (countryName: string) => {
+    const guessCountry = countries.find(c => c.name === countryName);
     
     if (!guessCountry) {
       toast({
         title: "Invalid country",
-        description: "Please enter a valid country name",
+        description: "Please select a valid country from the dropdown",
         variant: "destructive",
       });
       return;
@@ -70,11 +85,13 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
       country: guessCountry.name,
       distance,
       direction,
+      isCorrect: guessCountry.name === targetCountry.name,
     };
 
     const newGuesses = [...guesses, newGuess];
     setGuesses(newGuesses);
     setCurrentGuess("");
+    setOpen(false);
 
     if (guessCountry.name === targetCountry.name) {
       toast({
@@ -101,22 +118,47 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
       />
       
       <div className="mt-6 space-y-4">
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Input
-            value={currentGuess}
-            onChange={(e) => setCurrentGuess(e.target.value)}
-            placeholder="Enter country name"
-            disabled={gameOver}
-            className="flex-1"
-          />
-          <Button 
-            onClick={handleGuess} 
-            disabled={gameOver || !currentGuess}
-            className="w-full sm:w-auto"
-          >
-            Guess
-          </Button>
-        </div>
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              aria-expanded={open}
+              disabled={gameOver}
+              className="w-full justify-between"
+            >
+              {currentGuess
+                ? countries.find((country) => country.name === currentGuess)?.name
+                : "Select a country..."}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-full p-0">
+            <Command>
+              <CommandInput placeholder="Search country..." />
+              <CommandEmpty>No country found.</CommandEmpty>
+              <CommandGroup>
+                {countries.map((country) => (
+                  <CommandItem
+                    key={country.name}
+                    value={country.name}
+                    onSelect={(currentValue) => {
+                      setCurrentGuess(currentValue);
+                      handleGuess(currentValue);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        currentGuess === country.name ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {country.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </Command>
+          </PopoverContent>
+        </Popover>
         
         <div className="text-sm text-muted-foreground">
           {5 - guesses.length} guesses remaining

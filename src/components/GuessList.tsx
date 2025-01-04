@@ -26,7 +26,12 @@ const GuessList = ({ guesses }: GuessListProps) => {
       {guesses.map((guess, index) => (
         <div
           key={index}
-          className="flex items-center justify-between p-3 bg-card rounded-lg shadow-sm animate-fade-in border border-border/50"
+          className={cn(
+            "flex items-center justify-between p-3 rounded-lg shadow-sm animate-fade-in border",
+            guess.isCorrect
+              ? "bg-green-500/10 border-green-500/20 dark:bg-green-500/20"
+              : "bg-card border-border/50"
+          )}
         >
           <span className="font-medium text-sm sm:text-base">{guess.country}</span>
           <div className="flex items-center gap-2 sm:gap-4">

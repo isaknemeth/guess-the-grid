@@ -13,4 +13,5 @@ export interface GuessResult {
   country: string;
   distance: number;
   direction: string;
+  isCorrect: boolean;
 }
