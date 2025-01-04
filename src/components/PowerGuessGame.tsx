@@ -10,6 +10,7 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
+  CommandList,
 } from "@/components/ui/command";
 import {
   Popover,
@@ -144,27 +145,29 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
                 value={searchValue}
                 onValueChange={setSearchValue}
               />
-              <CommandEmpty>No country found.</CommandEmpty>
-              <CommandGroup>
-                {filteredCountries.map((country) => (
-                  <CommandItem
-                    key={country.name}
-                    value={country.name}
-                    onSelect={(currentValue) => {
-                      setCurrentGuess(currentValue);
-                      handleGuess(currentValue);
-                    }}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        currentGuess === country.name ? "opacity-100" : "opacity-0"
-                      )}
-                    />
-                    {country.name}
-                  </CommandItem>
-                ))}
-              </CommandGroup>
+              <CommandList>
+                <CommandEmpty>No country found.</CommandEmpty>
+                <CommandGroup>
+                  {filteredCountries.map((country) => (
+                    <CommandItem
+                      key={country.name}
+                      value={country.name}
+                      onSelect={(currentValue) => {
+                        setCurrentGuess(currentValue);
+                        handleGuess(currentValue);
+                      }}
+                    >
+                      <Check
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          currentGuess === country.name ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                      {country.name}
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
             </Command>
           </PopoverContent>
         </Popover>
