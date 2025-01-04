@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import EnergyChart from "./EnergyChart";
@@ -30,6 +29,7 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
   const [currentGuess, setCurrentGuess] = useState("");
   const [gameOver, setGameOver] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const { toast } = useToast();
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
@@ -91,6 +91,7 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
     const newGuesses = [...guesses, newGuess];
     setGuesses(newGuesses);
     setCurrentGuess("");
+    setSearchValue("");
     setOpen(false);
 
     if (guessCountry.name === targetCountry.name) {
@@ -108,6 +109,10 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
       setGameOver(true);
     }
   };
+
+  const filteredCountries = countries.filter((country) =>
+    country.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   return (
     <div className="w-full">
@@ -134,10 +139,14 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
           </PopoverTrigger>
           <PopoverContent className="w-full p-0">
             <Command>
-              <CommandInput placeholder="Search country..." />
+              <CommandInput 
+                placeholder="Search country..." 
+                value={searchValue}
+                onValueChange={setSearchValue}
+              />
               <CommandEmpty>No country found.</CommandEmpty>
               <CommandGroup>
-                {countries.map((country) => (
+                {filteredCountries.map((country) => (
                   <CommandItem
                     key={country.name}
                     value={country.name}

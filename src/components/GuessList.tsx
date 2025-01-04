@@ -1,5 +1,6 @@
 import { GuessResult } from "@/types/game";
 import { ArrowDown, ArrowDownLeft, ArrowDownRight, ArrowLeft, ArrowRight, ArrowUp, ArrowUpLeft, ArrowUpRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface GuessListProps {
   guesses: GuessResult[];
