@@ -2,81 +2,38 @@ import PowerGuessGame from "@/components/PowerGuessGame";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
+import countriesData from "@/data/countries.json";
 
 // Extended dataset with more countries
-const sampleData = {
-  targetCountry: {
-    name: "France",
-    latitude: 46.2276,
-    longitude: 2.2137,
+// Convert the dataset to the required format
+const countries = Object.keys(countriesData).map((countryName) => {
+  const country = countriesData[countryName];
+  return {
+    name: countryName,
+    latitude: country.latitude,
+    longitude: country.longitude,
     energyMix: {
-      solar: 10,
-      wind: 20,
-      nuclear: 70,
+      hydro: country.Electricity.Hydro || 0,
+      wind: country.Electricity.Wind || 0,
+      nuclear: country.Electricity.Nuclear || 0,
+      solar: country.Electricity.Solar || 0,
+      other_Renewables: country.Electricity.Other_Renewables || 0,
+      oil: country.Electricity.Oil || 0,
+      gas: country.Electricity.Gas || 0,
+      coal: country.Electricity.Coal || 0,
+      biofuel: country.Electricity.Biofuel || 0,
     },
-  },
-  countries: [
-    {
-      name: "France",
-      latitude: 46.2276,
-      longitude: 2.2137,
-      energyMix: {
-        solar: 10,
-        wind: 20,
-        nuclear: 70,
-      },
-    },
-    {
-      name: "Germany",
-      latitude: 51.1657,
-      longitude: 10.4515,
-      energyMix: {
-        solar: 25,
-        wind: 45,
-        nuclear: 30,
-      },
-    },
-    {
-      name: "Spain",
-      latitude: 40.4637,
-      longitude: -3.7492,
-      energyMix: {
-        solar: 40,
-        wind: 35,
-        nuclear: 25,
-      },
-    },
-    {
-      name: "Sweden",
-      latitude: 60.1282,
-      longitude: 18.6435,
-      energyMix: {
-        solar: 5,
-        wind: 30,
-        nuclear: 65,
-      },
-    },
-    {
-      name: "Italy",
-      latitude: 41.8719,
-      longitude: 12.5674,
-      energyMix: {
-        solar: 35,
-        wind: 40,
-        nuclear: 25,
-      },
-    },
-    {
-      name: "Netherlands",
-      latitude: 52.1326,
-      longitude: 5.2913,
-      energyMix: {
-        solar: 20,
-        wind: 50,
-        nuclear: 30,
-      },
-    }
-  ],
+  };
+});
+
+const getRandomCountry = () => {
+  const randomIndex = Math.floor(Math.random() * countries.length);
+  return countries[randomIndex];
+};
+
+const sampleData = {
+  targetCountry: getRandomCountry(),
+  countries,
 };
 
 const Index = () => {
@@ -104,10 +61,10 @@ const Index = () => {
         {/* Header */}
         <div className="text-center space-y-4 mb-8 md:mb-12">
           <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400 dark:from-purple-400 dark:to-purple-200">
-            PowerGuess
+            Power_Guessr
           </h1>
           <p className="text-muted-foreground text-base md:text-lg">
-            Guess the country by its energy production mix
+            Guess the country by its electricity generation
           </p>
         </div>
 

@@ -1,9 +1,15 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
 interface EnergyChartProps {
-  solar: number;
-  wind: number;
-  nuclear: number;
+  Hydro?: number;
+  Wind?: number;
+  Nuclear?: number;
+  Solar?: number;
+  Other_renewables?: number;
+  Oil?: number;
+  Gas?: number;
+  Coal?: number;
+  Biofuel?: number;
 }
 
 const CustomTooltip = ({ active, payload }: any) => {
@@ -17,11 +23,17 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-const EnergyChart = ({ solar, wind, nuclear }: EnergyChartProps) => {
+const EnergyChart = ({ solar, wind, hydro, other_renewables, nuclear, oil, gas, coal, biofuel }: EnergyChartProps) => {
   const data = [
-    { name: "Solar", value: solar, color: "#FEC6A1" },
-    { name: "Wind", value: wind, color: "#D3E4FD" },
-    { name: "Nuclear", value: nuclear, color: "#E5DEFF" },
+    { name: "Solar", value: solar || 0, color: "#FFD700"},
+    { name: "Wind", value: wind || 0, color: "#D3E4FD" },
+    { name: "Hydro", value: hydro || 0, color: "#00CED1" },
+    { name: "Other Renewables", value: other_renewables || 0, color: "#8FBC8F" },
+    { name: "Nuclear", value: nuclear || 0, color: "#E5DEFF"},
+    { name: "Oil", value: oil || 0, color: "#252252" },
+    { name: "Gas", value: gas || 0, color: "#5B7876" },
+    { name: "Coal", value: coal || 0, color: "#292929" },
+    { name: "Biofuel", value: biofuel || 0, color: "#806626" },
   ];
 
   return (

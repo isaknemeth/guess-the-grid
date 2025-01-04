@@ -34,22 +34,25 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
   const { toast } = useToast();
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    const R = 6371;
+    const R = 6371; // Radius of the Earth in kilometers
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = 
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
-      Math.sin(dLon/2) * Math.sin(dLon/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    return R * c;
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distance in kilometers
   };
 
   const calculateDirection = (lat1: number, lon1: number, lat2: number, lon2: number) => {
     const dLon = (lon2 - lon1) * Math.PI / 180;
-    const y = Math.sin(dLon) * Math.cos(lat2 * Math.PI / 180);
-    const x = Math.cos(lat1 * Math.PI / 180) * Math.sin(lat2 * Math.PI / 180) -
-              Math.sin(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.cos(dLon);
+    const lat1Rad = lat1 * Math.PI / 180;
+    const lat2Rad = lat2 * Math.PI / 180;
+  
+    const y = Math.sin(dLon) * Math.cos(lat2Rad);
+    const x = Math.cos(lat1Rad) * Math.sin(lat2Rad) -
+              Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(dLon);
     const bearing = Math.atan2(y, x) * 180 / Math.PI;
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
     const index = Math.round(((bearing + 360) % 360) / 45) % 8;
@@ -118,9 +121,16 @@ const PowerGuessGame = ({ targetCountry, countries }: PowerGuessGameProps) => {
   return (
     <div className="w-full">
       <EnergyChart
-        solar={targetCountry.energyMix.solar}
+
+        hydro={targetCountry.energyMix.hydro}
         wind={targetCountry.energyMix.wind}
         nuclear={targetCountry.energyMix.nuclear}
+        solar={targetCountry.energyMix.solar}
+        other_renewables={targetCountry.energyMix.other_Renewables}
+        oil={targetCountry.energyMix.oil}
+        gas={targetCountry.energyMix.gas}
+        coal={targetCountry.energyMix.coal}
+        biofuel={targetCountry.energyMix.biofuel}
       />
       
       <div className="mt-6 space-y-4">

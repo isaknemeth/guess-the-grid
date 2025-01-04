@@ -3,9 +3,15 @@ export interface CountryData {
   latitude: number;
   longitude: number;
   energyMix: {
-    solar: number;
-    wind: number;
-    nuclear: number;
+    Hydro?: number;
+    Wind?: number;
+    Nuclear?: number;
+    Solar?: number;
+    Other_Renewables?: number;
+    Oil?: number;
+    Gas?: number;
+    Coal?: number;
+    Biofuel?: number;
   };
 }
 
