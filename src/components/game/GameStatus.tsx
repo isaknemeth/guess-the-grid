@@ -1,9 +1,9 @@
 import { Info } from "lucide-react";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface GameStatusProps {
   remainingGuesses: number;
@@ -16,8 +16,8 @@ const GameStatus = ({ remainingGuesses }: GameStatusProps) => {
         Remaining guesses: {remainingGuesses}
       </div>
       
-      <Popover>
-        <PopoverTrigger asChild>
+      <Dialog>
+        <DialogTrigger asChild>
           <button 
             className="inline-flex items-center p-1 rounded-full hover:bg-muted/50 transition-colors"
             type="button"
@@ -25,18 +25,14 @@ const GameStatus = ({ remainingGuesses }: GameStatusProps) => {
           >
             <Info className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
           </button>
-        </PopoverTrigger>
-        <PopoverContent 
-          className="w-80"
-          align="start"
-          side="right"
-        >
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
           <div className="space-y-2 text-sm">
             <p>🎯 <strong>Distance:</strong> Shows the shortest distance between the centers of your guessed country and the target country (in km)</p>
             <p>🧭 <strong>Direction:</strong> The arrow points along the shortest path from your guess towards the target country using 8 directions (N, NE, E, SE, S, SW, W, NW)</p>
           </div>
-        </PopoverContent>
-      </Popover>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
