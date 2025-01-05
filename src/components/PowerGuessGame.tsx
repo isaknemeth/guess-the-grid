@@ -134,12 +134,11 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
   return (
     <div className="w-full">
       <EnergyChart
-
         hydro={targetCountry.energyMix.hydro}
         wind={targetCountry.energyMix.wind}
         nuclear={targetCountry.energyMix.nuclear}
         solar={targetCountry.energyMix.solar}
-        other_renewables={targetCountry.energyMix.other_Renewables}
+        other_renewables={targetCountry.energyMix.other_renewables}
         oil={targetCountry.energyMix.oil}
         gas={targetCountry.energyMix.gas}
         coal={targetCountry.energyMix.coal}
