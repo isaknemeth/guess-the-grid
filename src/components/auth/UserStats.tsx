@@ -80,7 +80,7 @@ const UserStats = () => {
   const correctCountriesCount = stats.correctCountries.length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 pb-16">
       <h2 className="text-lg font-semibold text-center">Your Statistics</h2>
       
       <StatsGrid
@@ -91,16 +91,17 @@ const UserStats = () => {
 
       <GuessDistribution guessesCounts={stats.guessesCounts} />
 
-      <div className="text-center">
+      <div className="text-center mt-4">
         <div className="text-2xl font-bold">
           {correctCountriesCount}/{totalCountries}
         </div>
-        <div className="text-sm text-muted-foreground">Countries Guessed Correctly</div>
+        <div className="text-sm text-muted-foreground mb-2">Countries Guessed Correctly</div>
       </div>
+      
       <WorldMap correctCountries={stats.correctCountries} />
       
       {userEmail && (
-        <div className="text-center text-sm text-muted-foreground">
+        <div className="text-center text-sm text-muted-foreground mt-2">
           {userEmail}
         </div>
       )}
