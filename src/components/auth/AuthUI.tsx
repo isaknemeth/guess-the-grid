@@ -5,6 +5,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui/input";
 
 const AuthUI = () => {
   const { theme } = useTheme();
@@ -12,13 +13,19 @@ const AuthUI = () => {
   const [testEmail, setTestEmail] = useState("");
 
   const handleTestEmail = async () => {
+    if (!testEmail) {
+      toast({
+        title: "Error",
+        description: "Please enter an email address",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(
-        "test@example.com",
-        {
-          redirectTo: window.location.origin,
-        }
-      );
+      const { error } = await supabase.auth.resetPasswordForEmail(testEmail, {
+        redirectTo: window.location.origin,
+      });
       
       if (error) {
         toast({
@@ -61,7 +68,13 @@ const AuthUI = () => {
         providers={["google"]}
       />
       
-      <div className="pt-4 border-t">
+      <div className="pt-4 border-t space-y-2">
+        <Input
+          type="email"
+          placeholder="Enter email for testing"
+          value={testEmail}
+          onChange={(e) => setTestEmail(e.target.value)}
+        />
         <Button 
           onClick={handleTestEmail}
           variant="outline"
