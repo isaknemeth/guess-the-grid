@@ -26,7 +26,7 @@ const GameStatus = ({ remainingGuesses }: GameStatusProps) => {
             <Info className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
           </button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md p-4 max-h-[90vh] w-[90vw] sm:w-full">
           <div className="space-y-2 text-sm">
             <p>🎯 <strong>Distance:</strong> Shows the shortest distance between the centers of your guessed country and the target country (in km)</p>
             <p>🧭 <strong>Direction:</strong> The arrow points along the shortest path from your guess towards the target country using 8 directions (N, NE, E, SE, S, SW, W, NW)</p>
