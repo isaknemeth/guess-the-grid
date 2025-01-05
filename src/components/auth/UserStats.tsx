@@ -114,10 +114,10 @@ const UserStats = () => {
         >
           <Geographies geography="/world-110m.json">
             {({ geographies }) => {
-              console.log("All map countries:", geographies.map(geo => geo.properties.ADMIN)); // Changed from NAME to ADMIN
+              console.log("All map countries:", geographies.map(geo => geo.properties.name)); // Changed to lowercase 'name'
               return geographies.map((geo) => {
-                const isCorrect = stats.correctCountries.includes(geo.properties.ADMIN); // Changed from NAME to ADMIN
-                console.log(`Country ${geo.properties.ADMIN}: ${isCorrect ? 'correct' : 'incorrect'}`); // Changed from NAME to ADMIN
+                const isCorrect = stats.correctCountries.includes(geo.properties.name); // Changed to lowercase 'name'
+                console.log(`Country ${geo.properties.name}: ${isCorrect ? 'correct' : 'incorrect'}`); // Changed to lowercase 'name'
                 return (
                   <Geography
                     key={geo.rsmKey}
