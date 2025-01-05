@@ -114,9 +114,12 @@ const Index = () => {
       </div>
 
       {/* Footer with Privacy Policy Link */}
-      <footer className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
+      <footer className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4">
         <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
           Privacy Policy
+        </Link>
+        <Link to="/terms-of-service" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          Terms of Service
         </Link>
       </footer>
     </div>
