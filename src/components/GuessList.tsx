@@ -32,7 +32,7 @@ const GuessItem = memo(({ guess, showDistances, showDirections }: { guess: Guess
       "flex items-center justify-between p-3 rounded-lg shadow-sm animate-fade-in border",
       guess.isCorrect
         ? "bg-green-500/10 border-green-500/20 dark:bg-green-500/20"
-        : "bg-card border-border/50"
+        : "bg-[#ea384c]/5 border-[#ea384c]/20 dark:bg-[#ea384c]/10"
     )}
   >
     <span className="font-medium text-sm sm:text-base">{guess.country}</span>
