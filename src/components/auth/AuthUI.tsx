@@ -34,7 +34,9 @@ const AuthUI = () => {
           },
           className: {
             message: (message: string) => {
-              if (message.includes("weak_password")) {
+              if (message.includes("Invalid login credentials")) {
+                setError("Invalid email or password");
+              } else if (message.includes("weak_password")) {
                 setError("Password must be at least 6 characters long");
               } else {
                 setError(message);
