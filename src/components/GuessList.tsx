@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 interface GuessListProps {
   guesses: GuessResult[];
   showDistances?: boolean;
+  showDirections?: boolean;
 }
 
 const DirectionArrow = memo(({ direction }: { direction: string }) => {
@@ -25,7 +26,7 @@ const DirectionArrow = memo(({ direction }: { direction: string }) => {
 
 DirectionArrow.displayName = "DirectionArrow";
 
-const GuessItem = memo(({ guess, showDistances }: { guess: GuessResult; showDistances?: boolean }) => (
+const GuessItem = memo(({ guess, showDistances, showDirections }: { guess: GuessResult; showDistances?: boolean; showDirections?: boolean }) => (
   <div
     className={cn(
       "flex items-center justify-between p-3 rounded-lg shadow-sm animate-fade-in border",
@@ -38,7 +39,7 @@ const GuessItem = memo(({ guess, showDistances }: { guess: GuessResult; showDist
     {!guess.isCorrect && (
       <div className="flex items-center gap-2 sm:gap-4">
         {showDistances && <span className="text-sm sm:text-base">{Math.round(guess.distance)}km</span>}
-        <DirectionArrow direction={guess.direction} />
+        {showDirections && <DirectionArrow direction={guess.direction} />}
       </div>
     )}
   </div>
@@ -46,11 +47,16 @@ const GuessItem = memo(({ guess, showDistances }: { guess: GuessResult; showDist
 
 GuessItem.displayName = "GuessItem";
 
-const GuessList = ({ guesses, showDistances = true }: GuessListProps) => {
+const GuessList = ({ guesses, showDistances = true, showDirections = true }: GuessListProps) => {
   return (
     <div className="space-y-2">
       {guesses.map((guess, index) => (
-        <GuessItem key={index} guess={guess} showDistances={showDistances} />
+        <GuessItem 
+          key={index} 
+          guess={guess} 
+          showDistances={showDistances} 
+          showDirections={showDirections}
+        />
       ))}
     </div>
   );

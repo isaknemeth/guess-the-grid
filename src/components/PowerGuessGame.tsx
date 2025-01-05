@@ -6,8 +6,7 @@ import GuessInput from "./game/GuessInput";
 import GameOver from "./game/GameOver";
 import GameStatus from "./game/GameStatus";
 import { useGameState } from "@/hooks/useGameState";
-import { Button } from "./ui/button";
-import { MapPin } from "lucide-react";
+import SettingsDialog from "./settings/SettingsDialog";
 
 interface PowerGuessGameProps {
   targetCountry: CountryData;
@@ -15,8 +14,9 @@ interface PowerGuessGameProps {
 }
 
 const PowerGuessGame = memo(({ targetCountry: initialTargetCountry, countries }: PowerGuessGameProps) => {
-  const { guesses, gameOver, targetCountry, handleGuess, resetGame } = useGameState(initialTargetCountry);
   const [showDistances, setShowDistances] = useState(true);
+  const [showDirections, setShowDirections] = useState(true);
+  const { guesses, gameOver, targetCountry, handleGuess, resetGame } = useGameState(initialTargetCountry);
 
   return (
     <div className="w-full">
@@ -35,15 +35,12 @@ const PowerGuessGame = memo(({ targetCountry: initialTargetCountry, countries }:
       <div className="mt-6 space-y-4">
         <div className="flex items-center justify-between">
           <GameStatus remainingGuesses={5 - guesses.length} />
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setShowDistances(!showDistances)}
-            className="flex items-center gap-2"
-          >
-            <MapPin className="h-4 w-4" />
-            {showDistances ? "Hide Distances" : "Show Distances"}
-          </Button>
+          <SettingsDialog
+            showDistances={showDistances}
+            setShowDistances={setShowDistances}
+            showDirections={showDirections}
+            setShowDirections={setShowDirections}
+          />
         </div>
 
         <GuessInput
@@ -52,7 +49,11 @@ const PowerGuessGame = memo(({ targetCountry: initialTargetCountry, countries }:
           disabled={gameOver}
         />
 
-        <GuessList guesses={guesses} showDistances={showDistances} />
+        <GuessList 
+          guesses={guesses} 
+          showDistances={showDistances}
+          showDirections={showDirections}
+        />
 
         {gameOver && (
           <GameOver
