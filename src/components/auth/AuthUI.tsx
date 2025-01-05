@@ -23,6 +23,18 @@ const AuthUI = () => {
         }}
         theme={theme}
         providers={[]}
+        localization={{
+          variables: {
+            sign_up: {
+              password_label: 'Password (minimum 6 characters)',
+              password_input_placeholder: 'Enter your password (min. 6 characters)',
+            },
+            sign_in: {
+              password_label: 'Your password',
+              password_input_placeholder: 'Enter your password',
+            },
+          },
+        }}
       />
     </div>
   );
