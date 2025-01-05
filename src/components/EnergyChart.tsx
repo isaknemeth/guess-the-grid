@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
 interface EnergyChartProps {
@@ -24,7 +25,7 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 const EnergyChart = ({ hydro, wind, nuclear, solar, other_renewables, oil, gas, coal, biofuel }: EnergyChartProps) => {
-  const rawData = [
+  const rawData = useMemo(() => [
     { name: "Solar", value: parseFloat((solar || 0).toFixed(1)), color: "#FFD700"},
     { name: "Wind", value: parseFloat((wind || 0).toFixed(1)), color: "#C2E4FD" },
     { name: "Hydro", value: parseFloat((hydro || 0).toFixed(1)), color: "#00A1E6" },
@@ -34,9 +35,9 @@ const EnergyChart = ({ hydro, wind, nuclear, solar, other_renewables, oil, gas, 
     { name: "Gas", value: parseFloat((gas || 0).toFixed(1)), color: "#5B7876" },
     { name: "Coal", value: parseFloat((coal || 0).toFixed(1)), color: "#808080" },
     { name: "Biofuel", value: parseFloat((biofuel || 0).toFixed(1)), color: "#806626" },
-  ];
+  ], [hydro, wind, nuclear, solar, other_renewables, oil, gas, coal, biofuel]);
 
-  const groupedData = rawData.reduce((acc, entry) => {
+  const groupedData = useMemo(() => rawData.reduce((acc, entry) => {
     if (entry.value > 0 && entry.value < 1) {
       const other = acc.find(item => item.name === "Other");
       if (other) {
@@ -48,7 +49,7 @@ const EnergyChart = ({ hydro, wind, nuclear, solar, other_renewables, oil, gas, 
       acc.push(entry);
     }
     return acc;
-  }, []);
+  }, []), [rawData]);
 
   return (
     <div className="w-full h-[300px] mt-4">

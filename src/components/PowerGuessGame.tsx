@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import EnergyChart from "./EnergyChart";
@@ -19,7 +19,7 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
   const [targetCountry, setTargetCountry] = useState<CountryData>(initialTargetCountry);
   const { toast } = useToast();
 
-  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+  const calculateDistance = useCallback((lat1: number, lon1: number, lat2: number, lon2: number) => {
     const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -29,9 +29,9 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
-  };
+  }, []);
 
-  const calculateDirection = (lat1: number, lon1: number, lat2: number, lon2: number) => {
+  const calculateDirection = useCallback((lat1: number, lon1: number, lat2: number, lon2: number) => {
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const lat1Rad = lat1 * Math.PI / 180;
     const lat2Rad = lat2 * Math.PI / 180;
@@ -43,12 +43,11 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
     const index = Math.round(((bearing + 360) % 360) / 45) % 8;
     return directions[index];
-  };
+  }, []);
 
-  const saveGameResult = async (correct: boolean, numGuesses: number, countryGuessed: string) => {
+  const saveGameResult = useCallback(async (correct: boolean, numGuesses: number, countryGuessed: string) => {
     const { data: { session } } = await supabase.auth.getSession();
     
-    // Only save results if user is authenticated
     if (session?.user?.id) {
       try {
         const { error } = await supabase
@@ -65,9 +64,9 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
         console.error('Error saving game result:', error);
       }
     }
-  };
+  }, []);
 
-  const handleGuess = (countryName: string) => {
+  const handleGuess = useCallback((countryName: string) => {
     const guessCountry = countries.find(c => c.name === countryName);
     
     if (!guessCountry) {
@@ -119,13 +118,13 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
       setGameOver(true);
       saveGameResult(false, newGuesses.length, guessCountry.name);
     }
-  };
+  }, [guesses, targetCountry, countries, toast, calculateDistance, calculateDirection, saveGameResult]);
 
-  const resetGame = () => {
+  const resetGame = useCallback(() => {
     setGuesses([]);
     setGameOver(false);
     setTargetCountry(getRandomCountry());
-  };
+  }, []);
 
   return (
     <div className="w-full">
