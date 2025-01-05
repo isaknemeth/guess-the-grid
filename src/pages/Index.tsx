@@ -79,8 +79,8 @@ const Index = () => {
       </div>
 
       <div className="container max-w-5xl mx-auto px-4 py-8 md:py-12">
-        {/* Header */}
-        <div className="text-center space-y-4 mb-8 md:mb-12">
+        {/* Header - Added pt-12 for mobile spacing */}
+        <div className="text-center space-y-4 mb-8 md:mb-12 pt-12 md:pt-0">
           <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400 dark:from-purple-400 dark:to-purple-200">
             Power_Guessr
           </h1>
