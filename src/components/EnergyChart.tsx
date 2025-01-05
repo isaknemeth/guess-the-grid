@@ -31,10 +31,10 @@ const EnergyChart = ({ hydro, wind, nuclear, solar, other_renewables, oil, gas, 
     { name: "Hydro", value: parseFloat((hydro || 0).toFixed(1)), color: "#00A1E6" },
     { name: "Other Renewables", value: parseFloat((other_renewables || 0).toFixed(1)), color: "#8FBC8F" },
     { name: "Nuclear", value: parseFloat((nuclear || 0).toFixed(1)), color: "#AC8EF9"},
-    { name: "Oil", value: parseFloat((oil || 0).toFixed(1)), color: "#000000" },
+    { name: "Oil", value: parseFloat((oil || 0).toFixed(1)), color: "#969696" },
     { name: "Gas", value: parseFloat((gas || 0).toFixed(1)), color: "#5B7876" },
-    { name: "Coal", value: parseFloat((coal || 0).toFixed(1)), color: "#808080" },
-    { name: "Biofuel", value: parseFloat((biofuel || 0).toFixed(1)), color: "#806626" },
+    { name: "Coal", value: parseFloat((coal || 0).toFixed(1)), color: "#7E5A15" },
+    { name: "Biofuel", value: parseFloat((biofuel || 0).toFixed(1)), color: "#007C18" },
   ], [hydro, wind, nuclear, solar, other_renewables, oil, gas, coal, biofuel]);
 
   const groupedData = useMemo(() => rawData.reduce((acc, entry) => {
