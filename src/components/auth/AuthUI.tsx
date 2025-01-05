@@ -9,14 +9,6 @@ const AuthUI = () => {
   const { theme } = useTheme();
   const [error, setError] = useState<string | null>(null);
 
-  const handleAuthError = (error: Error) => {
-    if (error.message.includes("weak_password")) {
-      setError("Password must be at least 6 characters long");
-    } else {
-      setError(error.message);
-    }
-  };
-
   return (
     <div className="w-full max-w-md mx-auto space-y-4">
       {error && (
@@ -36,6 +28,10 @@ const AuthUI = () => {
               },
             },
           },
+          style: {
+            button: { borderRadius: '6px' },
+            anchor: { color: 'rgb(147, 51, 234)' },
+          },
         }}
         theme={theme}
         providers={[]}
@@ -51,8 +47,12 @@ const AuthUI = () => {
             },
           },
         }}
-        options={{
-          onError: handleAuthError
+        onError={(error) => {
+          if (error.message.includes("weak_password")) {
+            setError("Password must be at least 6 characters long");
+          } else {
+            setError(error.message);
+          }
         }}
       />
     </div>
