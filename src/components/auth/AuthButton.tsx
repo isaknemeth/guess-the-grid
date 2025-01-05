@@ -20,26 +20,25 @@ const AuthButton = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
 
   if (isAuthenticated) {
     return (
-      <Dialog open={showStats} onOpenChange={setShowStats}>
-        <DialogTrigger asChild>
-          <Button variant="outline">
-            Account
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-xl md:max-w-2xl lg:max-w-3xl">
-          <div className="space-y-4">
-            <UserStats />
-            <Button 
-              variant="outline" 
-              onClick={handleLogout}
-              className="w-full"
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign Out
+      <>
+        <Dialog open={showStats} onOpenChange={setShowStats}>
+          <DialogTrigger asChild>
+            <Button variant="outline">
+              Stats
             </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-xl md:max-w-2xl lg:max-w-3xl">
+            <UserStats />
+          </DialogContent>
+        </Dialog>
+        <Button 
+          variant="outline" 
+          onClick={handleLogout}
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          Sign Out
+        </Button>
+      </>
     );
   }
 
