@@ -41,7 +41,7 @@ const Index = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-300">
+    <div className="min-h-screen bg-background transition-colors duration-300 pb-16">
       {/* Theme Toggle and Auth Button are handled by AuthWrapper */}
       <div className="fixed top-4 right-16 z-50">
         <Button
@@ -114,13 +114,15 @@ const Index = () => {
       </div>
 
       {/* Footer with Privacy Policy Link */}
-      <footer className="fixed bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4">
-        <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-          Privacy Policy
-        </Link>
-        <Link to="/terms-of-service" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-          Terms of Service
-        </Link>
+      <footer className="fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-sm border-t p-4">
+        <div className="container max-w-5xl mx-auto flex justify-center gap-4">
+          <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Privacy Policy
+          </Link>
+          <Link to="/terms-of-service" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Terms of Service
+          </Link>
+        </div>
       </footer>
     </div>
   );
