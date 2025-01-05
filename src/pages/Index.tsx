@@ -47,14 +47,33 @@ const Index = () => {
               <Info className="h-5 w-5" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent>
-            <p className="font-medium">About Power_Guessr</p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Welcome to Power_Guessr! Your goal is to guess the country based on its electricity generation. You have 5 guesses to find the correct country.
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Distances are calculated to a central point in the country, not necessarily the closest one. All data is from 2022.
-            </p>
+          <PopoverContent className="w-80">
+            <div className="space-y-4">
+              <div>
+                <p className="font-medium">About Power_Guessr</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Welcome to Power_Guessr! Your goal is to guess the country based on its electricity generation. You have 5 guesses to find the correct country.
+                </p>
+              </div>
+              
+              <div>
+                <p className="font-medium">How distances work</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Distances are calculated using the Haversine formula, which determines the shortest distance between two points on a sphere. The distance shown is from the center point of your guessed country to the target country.
+                </p>
+              </div>
+              
+              <div>
+                <p className="font-medium">Direction arrows</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  The direction arrow points from your guess to the target country, using 8 cardinal and intercardinal directions (N, NE, E, SE, S, SW, W, NW). This is calculated based on the bearing between the two countries' center points.
+                </p>
+              </div>
+              
+              <p className="text-sm text-muted-foreground">
+                All data is from 2022.
+              </p>
+            </div>
           </PopoverContent>
         </Popover>
       </div>
