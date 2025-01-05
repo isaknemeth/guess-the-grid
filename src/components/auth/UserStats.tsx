@@ -15,11 +15,14 @@ interface Stats {
 const UserStats = () => {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchStats = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.user?.id) return;
+
+      setUserEmail(session.user.email);
 
       const { data, error } = await supabase
         .from('game_results')
@@ -80,6 +83,12 @@ const UserStats = () => {
       <GuessDistribution guessesCounts={stats.guessesCounts} />
 
       <WorldMap correctCountries={stats.correctCountries} />
+      
+      {userEmail && (
+        <div className="text-center text-sm text-muted-foreground">
+          {userEmail}
+        </div>
+      )}
     </div>
   );
 };
