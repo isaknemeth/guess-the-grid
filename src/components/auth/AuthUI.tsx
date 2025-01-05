@@ -2,12 +2,28 @@ import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { supabase } from "@/integrations/supabase/client";
 import { useTheme } from "@/hooks/use-theme";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useState } from "react";
 
 const AuthUI = () => {
   const { theme } = useTheme();
+  const [error, setError] = useState<string | null>(null);
+
+  const handleAuthError = (error: Error) => {
+    if (error.message.includes("weak_password")) {
+      setError("Password must be at least 6 characters long");
+    } else {
+      setError(error.message);
+    }
+  };
 
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-md mx-auto space-y-4">
+      {error && (
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
       <Auth
         supabaseClient={supabase}
         appearance={{
@@ -35,6 +51,7 @@ const AuthUI = () => {
             },
           },
         }}
+        onError={handleAuthError}
       />
     </div>
   );
