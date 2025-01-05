@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import StatsGrid from "./stats/StatsGrid";
 import GuessDistribution from "./stats/GuessDistribution";
 import WorldMap from "./stats/WorldMap";
+import countriesData from "@/data/countries.json"
 
 interface Stats {
   totalGames: number;
@@ -75,6 +76,9 @@ const UserStats = () => {
     return <div className="text-center py-4">No stats available</div>;
   }
 
+  const totalCountries = Object.keys(countriesData).length;
+  const correctCountriesCount = stats.correctCountries.length;
+
   return (
     <div className="space-y-6">
       <h2 className="text-lg font-semibold text-center">Your Statistics</h2>
@@ -87,6 +91,12 @@ const UserStats = () => {
 
       <GuessDistribution guessesCounts={stats.guessesCounts} />
 
+      <div className="text-center">
+        <div className="text-2xl font-bold">
+          {correctCountriesCount}/{totalCountries}
+        </div>
+        <div className="text-sm text-muted-foreground">Countries Guessed Correctly</div>
+      </div>
       <WorldMap correctCountries={stats.correctCountries} />
       
       {userEmail && (
