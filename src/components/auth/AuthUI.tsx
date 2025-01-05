@@ -51,7 +51,7 @@ const AuthUI = () => {
             },
           },
         }}
-        onError={handleAuthError}
+        onAuthError={handleAuthError}
       />
     </div>
   );
