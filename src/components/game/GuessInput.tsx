@@ -52,6 +52,7 @@ const GuessInput = ({ countries, onGuess, disabled }: GuessInputProps) => {
               setSearchValue(e.target.value);
               if (!open) setOpen(true);
             }}
+            onFocus={() => setOpen(true)}
             disabled={disabled}
             className="w-full pr-10"
           />
