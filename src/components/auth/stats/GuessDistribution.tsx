@@ -6,6 +6,7 @@ interface GuessDistributionProps {
 
 const GuessDistribution = ({ guessesCounts }: GuessDistributionProps) => {
   // Transform the data to separate successful guesses from failed attempts
+  // Only count as failed if it took 5 guesses AND was incorrect
   const transformedData = [
     ...guessesCounts.map(entry => ({
       ...entry,
@@ -13,7 +14,7 @@ const GuessDistribution = ({ guessesCounts }: GuessDistributionProps) => {
     })),
     {
       guesses: 6,
-      count: guessesCounts[4]?.count || 0, // Use the count from 5 guesses that were incorrect
+      count: guessesCounts.filter(g => g.guesses === 5).length - guessesCounts[4]?.count || 0, // Count only incorrect 5th guesses
       label: 'Failed'
     }
   ];
