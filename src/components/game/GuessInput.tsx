@@ -13,9 +13,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Check } from "lucide-react";
+import { Check, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CountryData } from "@/types/game";
+import { Input } from "@/components/ui/input";
 
 interface GuessInputProps {
   countries: CountryData[];
@@ -34,31 +35,31 @@ const GuessInput = ({ countries, onGuess, disabled }: GuessInputProps) => {
 
   const handleSelect = (value: string) => {
     setCurrentGuess(value);
+    setSearchValue("");
+    setOpen(false);
     onGuess(value);
   };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          disabled={disabled}
-          className="w-full justify-between"
-        >
-          {currentGuess
-            ? countries.find((country) => country.name === currentGuess)?.name
-            : "Select a country..."}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
-        <Command>
-          <CommandInput 
-            placeholder="Search country..." 
+        <div className="relative">
+          <Input
+            type="text"
+            placeholder="Search for a country..."
             value={searchValue}
-            onValueChange={setSearchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+              if (!open) setOpen(true);
+            }}
+            disabled={disabled}
+            className="w-full pr-10"
           />
+          <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        </div>
+      </PopoverTrigger>
+      <PopoverContent className="w-full p-0" align="start">
+        <Command>
           <CommandList>
             <CommandEmpty>No country found.</CommandEmpty>
             <CommandGroup>
