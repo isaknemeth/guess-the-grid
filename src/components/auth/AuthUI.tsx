@@ -32,6 +32,16 @@ const AuthUI = () => {
             button: { borderRadius: '6px' },
             anchor: { color: 'rgb(147, 51, 234)' },
           },
+          className: {
+            message: (message: string) => {
+              if (message.includes("weak_password")) {
+                setError("Password must be at least 6 characters long");
+              } else {
+                setError(message);
+              }
+              return "";
+            }
+          }
         }}
         theme={theme}
         providers={[]}
@@ -46,13 +56,6 @@ const AuthUI = () => {
               password_input_placeholder: 'Enter your password',
             },
           },
-        }}
-        onError={(error) => {
-          if (error.message.includes("weak_password")) {
-            setError("Password must be at least 6 characters long");
-          } else {
-            setError(error.message);
-          }
         }}
       />
     </div>
