@@ -68,7 +68,7 @@ const PrivacyPolicy = () => {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">6. Contact Us</h2>
             <p>If you have any questions about this privacy policy or our privacy practices, please contact us at:</p>
-            <p>Email: privacy@powerguessr.com</p>
+            <p>Email: powerguessr@gmail.com</p>
           </section>
         </div>
       </div>
