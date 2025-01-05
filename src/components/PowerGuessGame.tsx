@@ -46,20 +46,24 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
   };
 
   const saveGameResult = async (correct: boolean, numGuesses: number, countryGuessed: string) => {
-    try {
-      const { error } = await supabase
-        .from('game_results')
-        .insert([
-          {
+    const { data: { session } } = await supabase.auth.getSession();
+    
+    // Only save results if user is authenticated
+    if (session?.user?.id) {
+      try {
+        const { error } = await supabase
+          .from('game_results')
+          .insert({
             correct,
             num_guesses: numGuesses,
             country_guessed: countryGuessed,
-          },
-        ]);
+            user_id: session.user.id
+          });
 
-      if (error) throw error;
-    } catch (error) {
-      console.error('Error saving game result:', error);
+        if (error) throw error;
+      } catch (error) {
+        console.error('Error saving game result:', error);
+      }
     }
   };
 
