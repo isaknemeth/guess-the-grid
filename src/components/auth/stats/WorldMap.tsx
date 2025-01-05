@@ -6,7 +6,7 @@ interface WorldMapProps {
 
 const WorldMap = ({ correctCountries }: WorldMapProps) => {
   return (
-    <div className="h-96 rounded-lg overflow-hidden">
+    <div className="h-48 md:h-64 rounded-lg overflow-hidden">
       <ComposableMap
         projectionConfig={{
           scale: 147,
