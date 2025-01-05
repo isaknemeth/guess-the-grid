@@ -26,31 +26,42 @@ const AuthUI = () => {
     setIsSending(true);
 
     try {
-      console.log("Sending reset email to:", testEmail);
-      const { error, data } = await supabase.auth.resetPasswordForEmail(testEmail, {
-        redirectTo: window.location.origin,
-      });
-      
-      console.log("Response data:", data);
-      
-      if (error) {
-        console.error("Supabase error:", error);
-        toast({
-          title: "Error sending test email",
-          description: error.message,
-          variant: "destructive",
-        });
-      } else {
+      const response = await fetch(
+        "https://ggxraixmbfonvyxltcme.supabase.co/functions/v1/send-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            to: testEmail,
+            subject: "Test Email from Power_Guessr",
+            html: `
+              <h1>Welcome to Power_Guessr!</h1>
+              <p>This is a test email to verify your email settings are working correctly.</p>
+              <p>If you received this email, everything is set up properly!</p>
+            `,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log("Email sending response:", data);
+
+      if (response.ok) {
         toast({
           title: "Test email sent",
-          description: "Check your email inbox (and spam folder) for the password reset link",
+          description: "Please check your inbox (and spam folder) for the test email",
         });
+      } else {
+        throw new Error(data.error || "Failed to send email");
       }
     } catch (error) {
       console.error("Error:", error);
       toast({
-        title: "Error",
-        description: "Failed to send test email. Please check the console for more details.",
+        title: "Error sending test email",
+        description: error.message || "Failed to send email. Please try again.",
         variant: "destructive",
       });
     } finally {
