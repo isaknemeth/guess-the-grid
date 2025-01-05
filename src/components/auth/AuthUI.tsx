@@ -4,13 +4,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { useTheme } from "@/hooks/use-theme";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 
 const AuthUI = () => {
   const { theme } = useTheme();
   const { toast } = useToast();
   const [testEmail, setTestEmail] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const handleTestEmail = async () => {
     if (!testEmail) {
@@ -22,12 +23,18 @@ const AuthUI = () => {
       return;
     }
 
+    setIsSending(true);
+
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(testEmail, {
+      console.log("Sending reset email to:", testEmail);
+      const { error, data } = await supabase.auth.resetPasswordForEmail(testEmail, {
         redirectTo: window.location.origin,
       });
       
+      console.log("Response data:", data);
+      
       if (error) {
+        console.error("Supabase error:", error);
         toast({
           title: "Error sending test email",
           description: error.message,
@@ -36,16 +43,18 @@ const AuthUI = () => {
       } else {
         toast({
           title: "Test email sent",
-          description: "Check your email inbox for the password reset link",
+          description: "Check your email inbox (and spam folder) for the password reset link",
         });
       }
     } catch (error) {
       console.error("Error:", error);
       toast({
         title: "Error",
-        description: "Failed to send test email",
+        description: "Failed to send test email. Please check the console for more details.",
         variant: "destructive",
       });
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -74,13 +83,15 @@ const AuthUI = () => {
           placeholder="Enter email for testing"
           value={testEmail}
           onChange={(e) => setTestEmail(e.target.value)}
+          disabled={isSending}
         />
         <Button 
           onClick={handleTestEmail}
           variant="outline"
           className="w-full"
+          disabled={isSending}
         >
-          Send Test Email
+          {isSending ? "Sending..." : "Send Test Email"}
         </Button>
       </div>
     </div>
