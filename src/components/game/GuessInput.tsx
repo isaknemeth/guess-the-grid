@@ -27,12 +27,8 @@ const GuessInput = ({ countries, onGuess, disabled }: GuessInputProps) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
-  const filteredCountries = countries.filter((country) =>
-    country.name.toLowerCase().includes(value.toLowerCase())
-  );
-
   const handleSelect = (currentValue: string) => {
-    setValue(currentValue);
+    setValue("");
     setOpen(false);
     onGuess(currentValue);
   };
@@ -45,11 +41,8 @@ const GuessInput = ({ countries, onGuess, disabled }: GuessInputProps) => {
             type="text"
             placeholder="Search for a country..."
             value={value}
-            onChange={(e) => {
-              setValue(e.target.value);
-              if (!open) setOpen(true);
-            }}
-            onClick={() => setOpen(true)}
+            onChange={(e) => setValue(e.target.value)}
+            onFocus={() => !disabled && setOpen(true)}
             disabled={disabled}
             className="w-full pr-10"
           />
@@ -58,24 +51,33 @@ const GuessInput = ({ countries, onGuess, disabled }: GuessInputProps) => {
       </PopoverTrigger>
       <PopoverContent className="w-full p-0" align="start">
         <Command>
+          <CommandInput
+            placeholder="Search for a country..."
+            value={value}
+            onValueChange={setValue}
+          />
           <CommandList>
             <CommandEmpty>No country found.</CommandEmpty>
             <CommandGroup>
-              {filteredCountries.map((country) => (
-                <CommandItem
-                  key={country.name}
-                  value={country.name}
-                  onSelect={handleSelect}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === country.name ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {country.name}
-                </CommandItem>
-              ))}
+              {countries
+                .filter((country) =>
+                  country.name.toLowerCase().includes(value.toLowerCase())
+                )
+                .map((country) => (
+                  <CommandItem
+                    key={country.name}
+                    value={country.name}
+                    onSelect={handleSelect}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === country.name ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {country.name}
+                  </CommandItem>
+                ))}
             </CommandGroup>
           </CommandList>
         </Command>
