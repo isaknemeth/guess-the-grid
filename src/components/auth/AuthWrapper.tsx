@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import AuthUI from "./AuthUI";
+import AuthButton from "./AuthButton";
 
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -25,14 +25,11 @@ const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
     return <div>Loading...</div>;
   }
 
-  // Allow access to the app even when not authenticated
   return (
     <>
-      {!isAuthenticated && (
-        <div className="fixed top-4 right-4 z-50">
-          <AuthUI />
-        </div>
-      )}
+      <div className="fixed top-4 right-4 z-50">
+        <AuthButton isAuthenticated={isAuthenticated} />
+      </div>
       {children}
     </>
   );
