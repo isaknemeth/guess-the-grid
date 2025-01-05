@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import StatsGrid from "./stats/StatsGrid";
 import GuessDistribution from "./stats/GuessDistribution";
-import WorldMap from "./stats/WorldMap";
-import countriesData from "@/data/countries.json"
+import MapSection from "./stats/MapSection";
+import StatsHeader from "./stats/StatsHeader";
+import countriesData from "@/data/countries.json";
 
 interface Stats {
   totalGames: number;
@@ -38,13 +39,10 @@ const UserStats = () => {
       if (data) {
         const totalGames = data.length;
         const wins = data.filter(game => game.correct).length;
-        
-        // Only count guesses for correct attempts when calculating average
         const totalGuesses = data
           .filter(game => game.correct)
           .reduce((sum, game) => sum + game.num_guesses, 0);
         
-        // Count correct guesses for each number of attempts
         const guessesCounts = Array.from({ length: 5 }, (_, i) => ({
           guesses: i + 1,
           count: data.filter(game => game.correct && game.num_guesses === i + 1).length
@@ -77,11 +75,13 @@ const UserStats = () => {
   }
 
   const totalCountries = Object.keys(countriesData).length;
-  const correctCountriesCount = stats.correctCountries.length;
 
   return (
     <div className="space-y-4 pb-4">
-      <h2 className="text-lg font-semibold text-center">Your Statistics</h2>
+      <StatsHeader 
+        correctCountriesCount={stats.correctCountries.length}
+        totalCountries={totalCountries}
+      />
       
       <StatsGrid
         totalGames={stats.totalGames}
@@ -90,23 +90,11 @@ const UserStats = () => {
       />
 
       <GuessDistribution guessesCounts={stats.guessesCounts} />
-
-      <div className="text-center">
-        <div className="text-2xl font-bold">
-          {correctCountriesCount}/{totalCountries}
-        </div>
-        <div className="text-sm text-muted-foreground">Countries Guessed Correctly</div>
-      </div>
       
-      <div className="space-y-2">
-        <WorldMap correctCountries={stats.correctCountries} />
-        
-        {userEmail && (
-          <div className="text-center text-sm text-muted-foreground">
-            {userEmail}
-          </div>
-        )}
-      </div>
+      <MapSection 
+        correctCountries={stats.correctCountries}
+        userEmail={userEmail}
+      />
     </div>
   );
 };
