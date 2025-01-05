@@ -1,27 +1,12 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import EnergyChart from "./EnergyChart";
 import GuessList from "./GuessList";
+import GuessInput from "./game/GuessInput";
+import GameOver from "./game/GameOver";
 import { getRandomCountry } from "@/pages/Index";
-
 import { CountryData, GuessResult } from "@/types/game";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Check, RotateCcw } from "lucide-react";
-import { cn } from "@/lib/utils";
-
 
 interface PowerGuessGameProps {
   targetCountry: CountryData;
@@ -30,15 +15,12 @@ interface PowerGuessGameProps {
 
 const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: PowerGuessGameProps) => {
   const [guesses, setGuesses] = useState<GuessResult[]>([]);
-  const [currentGuess, setCurrentGuess] = useState("");
   const [gameOver, setGameOver] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [targetCountry, setTargetCountry] = useState<CountryData>(initialTargetCountry)
+  const [targetCountry, setTargetCountry] = useState<CountryData>(initialTargetCountry);
   const { toast } = useToast();
 
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    const R = 6371; // Radius of the Earth in kilometers
+    const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
     const a = 
@@ -46,7 +28,7 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Distance in kilometers
+    return R * c;
   };
 
   const calculateDirection = (lat1: number, lon1: number, lat2: number, lon2: number) => {
@@ -61,6 +43,24 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
     const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
     const index = Math.round(((bearing + 360) % 360) / 45) % 8;
     return directions[index];
+  };
+
+  const saveGameResult = async (correct: boolean, numGuesses: number, countryGuessed: string) => {
+    try {
+      const { error } = await supabase
+        .from('game_results')
+        .insert([
+          {
+            correct,
+            num_guesses: numGuesses,
+            country_guessed: countryGuessed,
+          },
+        ]);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error saving game result:', error);
+    }
   };
 
   const handleGuess = (countryName: string) => {
@@ -89,25 +89,23 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
       targetCountry.longitude
     );
 
-    const newGuess: GuessResult = {
+    const isCorrect = guessCountry.name === targetCountry.name;
+    const newGuesses = [...guesses, {
       country: guessCountry.name,
       distance,
       direction,
-      isCorrect: guessCountry.name === targetCountry.name,
-    };
+      isCorrect,
+    }];
 
-    const newGuesses = [...guesses, newGuess];
     setGuesses(newGuesses);
-    setCurrentGuess("");
-    setSearchValue("");
-    setOpen(false);
 
-    if (guessCountry.name === targetCountry.name) {
+    if (isCorrect) {
       toast({
         title: "Congratulations!",
         description: "You found the correct country!",
       });
       setGameOver(true);
+      saveGameResult(true, newGuesses.length, guessCountry.name);
     } else if (newGuesses.length >= 5) {
       toast({
         title: "Game Over",
@@ -115,21 +113,15 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
         variant: "destructive",
       });
       setGameOver(true);
+      saveGameResult(false, newGuesses.length, guessCountry.name);
     }
   };
 
   const resetGame = () => {
     setGuesses([]);
-    setCurrentGuess("");
-    setSearchValue("");
     setGameOver(false);
-    setOpen(false);
     setTargetCountry(getRandomCountry());
   };
-
-  const filteredCountries = countries.filter((country) =>
-    country.name.toLowerCase().includes(searchValue.toLowerCase())
-  );
 
   return (
     <div className="w-full">
@@ -146,53 +138,11 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
       />
       
       <div className="mt-6 space-y-4">
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open}
-              disabled={gameOver}
-              className="w-full justify-between"
-            >
-              {currentGuess
-                ? countries.find((country) => country.name === currentGuess)?.name
-                : "Select a country..."}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-full p-0">
-            <Command>
-              <CommandInput 
-                placeholder="Search country..." 
-                value={searchValue}
-                onValueChange={setSearchValue}
-              />
-              <CommandList>
-                <CommandEmpty>No country found.</CommandEmpty>
-                <CommandGroup>
-                  {filteredCountries.map((country) => (
-                    <CommandItem
-                      key={country.name}
-                      value={country.name}
-                      onSelect={(currentValue) => {
-                        setCurrentGuess(currentValue);
-                        handleGuess(currentValue);
-                      }}
-                    >
-                      <Check
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          currentGuess === country.name ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                      {country.name}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
-              </CommandList>
-            </Command>
-          </PopoverContent>
-        </Popover>
+        <GuessInput
+          countries={countries}
+          onGuess={handleGuess}
+          disabled={gameOver}
+        />
         
         <div className="text-sm text-muted-foreground">
           {5 - guesses.length} guesses remaining
@@ -201,15 +151,10 @@ const PowerGuessGame = ({ targetCountry: initialTargetCountry, countries }: Powe
         <GuessList guesses={guesses} />
 
         {gameOver && (
-          <div className="text-center mt-4">
-            <div className="text-sm text-muted-foreground mb-2">
-              The correct country was {targetCountry.name}.
-            </div>
-            <Button variant="outline" onClick={resetGame} className="flex items-center justify-center gap-2">
-              <RotateCcw className="h-4 w-4" />
-              Play Again
-            </Button>
-          </div>
+          <GameOver
+            targetCountry={targetCountry.name}
+            onReset={resetGame}
+          />
         )}
       </div>
     </div>
