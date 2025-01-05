@@ -46,7 +46,7 @@ const UserStats = () => {
           .filter(game => game.correct)
           .map(game => game.country_guessed);
 
-        console.log("Correctly guessed countries:", correctCountries); // Debug log
+        console.log("Correctly guessed countries:", correctCountries);
         
         setStats({
           totalGames,
@@ -114,10 +114,10 @@ const UserStats = () => {
         >
           <Geographies geography="/world-110m.json">
             {({ geographies }) => {
-              console.log("All map countries:", geographies.map(geo => geo.properties.NAME)); // Debug log
+              console.log("All map countries:", geographies.map(geo => geo.properties.ADMIN)); // Changed from NAME to ADMIN
               return geographies.map((geo) => {
-                const isCorrect = stats.correctCountries.includes(geo.properties.NAME);
-                console.log(`Country ${geo.properties.NAME}: ${isCorrect ? 'correct' : 'incorrect'}`); // Debug log
+                const isCorrect = stats.correctCountries.includes(geo.properties.ADMIN); // Changed from NAME to ADMIN
+                console.log(`Country ${geo.properties.ADMIN}: ${isCorrect ? 'correct' : 'incorrect'}`); // Changed from NAME to ADMIN
                 return (
                   <Geography
                     key={geo.rsmKey}
