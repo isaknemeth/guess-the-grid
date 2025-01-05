@@ -45,6 +45,8 @@ const UserStats = () => {
         const correctCountries = data
           .filter(game => game.correct)
           .map(game => game.country_guessed);
+
+        console.log("Correctly guessed countries:", correctCountries); // Debug log
         
         setStats({
           totalGames,
@@ -111,31 +113,30 @@ const UserStats = () => {
           className="w-full h-full"
         >
           <Geographies geography="/world-110m.json">
-            {({ geographies }) =>
-              geographies.map((geo) => (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  fill={
-                    stats.correctCountries.includes(geo.properties.NAME)
-                      ? "#4ade80"
-                      : "#D6D6DA"
-                  }
-                  stroke="#FFFFFF"
-                  style={{
-                    default: {
-                      outline: "none",
-                    },
-                    hover: {
-                      outline: "none",
-                      fill: stats.correctCountries.includes(geo.properties.NAME)
-                        ? "#22c55e"
-                        : "#F5F4F6"
-                    },
-                  }}
-                />
-              ))
-            }
+            {({ geographies }) => {
+              console.log("All map countries:", geographies.map(geo => geo.properties.NAME)); // Debug log
+              return geographies.map((geo) => {
+                const isCorrect = stats.correctCountries.includes(geo.properties.NAME);
+                console.log(`Country ${geo.properties.NAME}: ${isCorrect ? 'correct' : 'incorrect'}`); // Debug log
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    fill={isCorrect ? "#4ade80" : "#D6D6DA"}
+                    stroke="#FFFFFF"
+                    style={{
+                      default: {
+                        outline: "none",
+                      },
+                      hover: {
+                        outline: "none",
+                        fill: isCorrect ? "#22c55e" : "#F5F4F6"
+                      },
+                    }}
+                  />
+                );
+              });
+            }}
           </Geographies>
         </ComposableMap>
       </div>
