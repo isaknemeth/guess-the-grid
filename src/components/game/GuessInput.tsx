@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -26,18 +25,16 @@ interface GuessInputProps {
 
 const GuessInput = ({ countries, onGuess, disabled }: GuessInputProps) => {
   const [open, setOpen] = useState(false);
-  const [currentGuess, setCurrentGuess] = useState("");
-  const [searchValue, setSearchValue] = useState("");
+  const [value, setValue] = useState("");
 
   const filteredCountries = countries.filter((country) =>
-    country.name.toLowerCase().includes(searchValue.toLowerCase())
+    country.name.toLowerCase().includes(value.toLowerCase())
   );
 
-  const handleSelect = (value: string) => {
-    setCurrentGuess(value);
-    setSearchValue("");
+  const handleSelect = (currentValue: string) => {
+    setValue(currentValue);
     setOpen(false);
-    onGuess(value);
+    onGuess(currentValue);
   };
 
   return (
@@ -47,12 +44,12 @@ const GuessInput = ({ countries, onGuess, disabled }: GuessInputProps) => {
           <Input
             type="text"
             placeholder="Search for a country..."
-            value={searchValue}
+            value={value}
             onChange={(e) => {
-              setSearchValue(e.target.value);
+              setValue(e.target.value);
               if (!open) setOpen(true);
             }}
-            onFocus={() => setOpen(true)}
+            onClick={() => setOpen(true)}
             disabled={disabled}
             className="w-full pr-10"
           />
@@ -73,7 +70,7 @@ const GuessInput = ({ countries, onGuess, disabled }: GuessInputProps) => {
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      currentGuess === country.name ? "opacity-100" : "opacity-0"
+                      value === country.name ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {country.name}
