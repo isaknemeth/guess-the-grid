@@ -80,7 +80,7 @@ const UserStats = () => {
   const correctCountriesCount = stats.correctCountries.length;
 
   return (
-    <div className="space-y-4 pb-16">
+    <div className="space-y-4 pb-4">
       <h2 className="text-lg font-semibold text-center">Your Statistics</h2>
       
       <StatsGrid
