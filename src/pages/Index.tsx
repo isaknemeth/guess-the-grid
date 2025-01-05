@@ -5,7 +5,6 @@ import { useTheme } from "@/hooks/use-theme";
 import countriesData from "@/data/countries.json";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-// Extended dataset with more countries
 // Convert the dataset to the required format
 const countries = Object.keys(countriesData).map((countryName) => {
   const country = countriesData[countryName];
@@ -18,7 +17,7 @@ const countries = Object.keys(countriesData).map((countryName) => {
       wind: country.Electricity.Wind || 0,
       nuclear: country.Electricity.Nuclear || 0,
       solar: country.Electricity.Solar || 0,
-      other_Renewables: country.Electricity.Other_Renewables || 0,
+      other_renewables: country.Electricity.Other_Renewables || 0,
       oil: country.Electricity.Oil || 0,
       gas: country.Electricity.Gas || 0,
       coal: country.Electricity.Coal || 0,

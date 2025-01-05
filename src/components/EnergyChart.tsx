@@ -1,15 +1,15 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
 interface EnergyChartProps {
-  Hydro?: number;
-  Wind?: number;
-  Nuclear?: number;
-  Solar?: number;
-  Other_renewables?: number;
-  Oil?: number;
-  Gas?: number;
-  Coal?: number;
-  Biofuel?: number;
+  hydro?: number;
+  wind?: number;
+  nuclear?: number;
+  solar?: number;
+  other_renewables?: number;
+  oil?: number;
+  gas?: number;
+  coal?: number;
+  biofuel?: number;
 }
 
 const CustomTooltip = ({ active, payload }: any) => {
@@ -23,7 +23,7 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-const EnergyChart = ({ solar, wind, hydro, other_renewables, nuclear, oil, gas, coal, biofuel }: EnergyChartProps) => {
+const EnergyChart = ({ hydro, wind, nuclear, solar, other_renewables, oil, gas, coal, biofuel }: EnergyChartProps) => {
   const rawData = [
     { name: "Solar", value: parseFloat((solar || 0).toFixed(1)), color: "#FFD700"},
     { name: "Wind", value: parseFloat((wind || 0).toFixed(1)), color: "#C2E4FD" },
