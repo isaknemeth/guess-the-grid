@@ -1,10 +1,9 @@
 import { Info } from "lucide-react";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface GameStatusProps {
   remainingGuesses: number;
@@ -17,29 +16,27 @@ const GameStatus = ({ remainingGuesses }: GameStatusProps) => {
         Remaining guesses: {remainingGuesses}
       </div>
       
-      <TooltipProvider delayDuration={0}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button 
-              className="inline-flex items-center p-1 rounded-full hover:bg-muted/50 transition-colors"
-              type="button"
-              aria-label="Game information"
-            >
-              <Info className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent 
-            side="right" 
-            align="center"
-            className="max-w-xs z-[9999]"
+      <Popover>
+        <PopoverTrigger asChild>
+          <button 
+            className="inline-flex items-center p-1 rounded-full hover:bg-muted/50 transition-colors"
+            type="button"
+            aria-label="Game information"
           >
-            <div className="space-y-2 text-sm">
-              <p>🎯 <strong>Distance:</strong> Shows the shortest distance between the centers of your guessed country and the target country (in km)</p>
-              <p>🧭 <strong>Direction:</strong> The arrow points along the shortest path from your guess towards the target country using 8 directions (N, NE, E, SE, S, SW, W, NW)</p>
-            </div>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+            <Info className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
+          </button>
+        </PopoverTrigger>
+        <PopoverContent 
+          className="w-80"
+          align="start"
+          side="right"
+        >
+          <div className="space-y-2 text-sm">
+            <p>🎯 <strong>Distance:</strong> Shows the shortest distance between the centers of your guessed country and the target country (in km)</p>
+            <p>🧭 <strong>Direction:</strong> The arrow points along the shortest path from your guess towards the target country using 8 directions (N, NE, E, SE, S, SW, W, NW)</p>
+          </div>
+        </PopoverContent>
+      </Popover>
     </div>
   );
 };
