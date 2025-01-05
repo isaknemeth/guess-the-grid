@@ -31,7 +31,7 @@ const GameStatus = ({ remainingGuesses }: GameStatusProps) => {
           <TooltipContent 
             side="right" 
             align="center"
-            className="max-w-xs"
+            className="max-w-xs z-[100]"
           >
             <div className="space-y-2 text-sm">
               <p>🎯 <strong>Distance:</strong> Shows the shortest distance between the centers of your guessed country and the target country (in km)</p>
