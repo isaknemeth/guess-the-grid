@@ -91,20 +91,22 @@ const UserStats = () => {
 
       <GuessDistribution guessesCounts={stats.guessesCounts} />
 
-      <div className="text-center mt-4">
+      <div className="text-center">
         <div className="text-2xl font-bold">
           {correctCountriesCount}/{totalCountries}
         </div>
-        <div className="text-sm text-muted-foreground mb-2">Countries Guessed Correctly</div>
+        <div className="text-sm text-muted-foreground">Countries Guessed Correctly</div>
       </div>
       
-      <WorldMap correctCountries={stats.correctCountries} />
-      
-      {userEmail && (
-        <div className="text-center text-sm text-muted-foreground mt-2">
-          {userEmail}
-        </div>
-      )}
+      <div className="space-y-2">
+        <WorldMap correctCountries={stats.correctCountries} />
+        
+        {userEmail && (
+          <div className="text-center text-sm text-muted-foreground">
+            {userEmail}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
