@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import StatsGrid from "./stats/StatsGrid";
+import GuessDistribution from "./stats/GuessDistribution";
+import WorldMap from "./stats/WorldMap";
 
 interface Stats {
   totalGames: number;
@@ -35,19 +36,15 @@ const UserStats = () => {
         const wins = data.filter(game => game.correct).length;
         const totalGuesses = data.reduce((sum, game) => sum + game.num_guesses, 0);
         
-        // Calculate guesses distribution
         const guessesCounts = Array.from({ length: 5 }, (_, i) => ({
           guesses: i + 1,
           count: data.filter(game => game.num_guesses === i + 1).length
         }));
 
-        // Get list of correctly guessed countries
         const correctCountries = data
           .filter(game => game.correct)
           .map(game => game.country_guessed);
 
-        console.log("Correctly guessed countries:", correctCountries);
-        
         setStats({
           totalGames,
           wins,
@@ -74,72 +71,15 @@ const UserStats = () => {
     <div className="space-y-6">
       <h2 className="text-lg font-semibold text-center">Your Statistics</h2>
       
-      {/* Summary Stats */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="text-center">
-          <div className="text-2xl font-bold">{stats.totalGames}</div>
-          <div className="text-sm text-muted-foreground">Played</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl font-bold">
-            {stats.totalGames > 0 ? Math.round((stats.wins / stats.totalGames) * 100) : 0}%
-          </div>
-          <div className="text-sm text-muted-foreground">Win Rate</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl font-bold">{stats.averageGuesses}</div>
-          <div className="text-sm text-muted-foreground">Avg. Guesses</div>
-        </div>
-      </div>
+      <StatsGrid
+        totalGames={stats.totalGames}
+        wins={stats.wins}
+        averageGuesses={stats.averageGuesses}
+      />
 
-      {/* Guesses Distribution Chart */}
-      <div className="h-48">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={stats.guessesCounts}>
-            <XAxis dataKey="guesses" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="count" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+      <GuessDistribution guessesCounts={stats.guessesCounts} />
 
-      {/* World Map */}
-      <div className="h-64 rounded-lg overflow-hidden">
-        <ComposableMap
-          projectionConfig={{
-            scale: 147,
-          }}
-          className="w-full h-full"
-        >
-          <Geographies geography="/world-110m.json">
-            {({ geographies }) => {
-              console.log("All map countries:", geographies.map(geo => geo.properties.name));
-              return geographies.map((geo) => {
-                const isCorrect = stats.correctCountries.includes(geo.properties.name);
-                console.log(`Country ${geo.properties.name}: ${isCorrect ? 'correct' : 'incorrect'}`);
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={isCorrect ? "#4ade80" : "#D6D6DA"}
-                    stroke="#FFFFFF"
-                    style={{
-                      default: {
-                        outline: "none",
-                      },
-                      hover: {
-                        outline: "none",
-                        fill: isCorrect ? "#22c55e" : "#F5F4F6"
-                      },
-                    }}
-                  />
-                );
-              });
-            }}
-          </Geographies>
-        </ComposableMap>
-      </div>
+      <WorldMap correctCountries={stats.correctCountries} />
     </div>
   );
 };
