@@ -34,8 +34,8 @@ const GameStatus = ({ remainingGuesses }: GameStatusProps) => {
             className="max-w-xs"
           >
             <div className="space-y-2 text-sm">
-              <p>🎯 <strong>Distance:</strong> Shows how far your guess is from the target country (in km)</p>
-              <p>🧭 <strong>Direction:</strong> The arrow points from your guess towards the target country using 8 directions (N, NE, E, SE, S, SW, W, NW)</p>
+              <p>🎯 <strong>Distance:</strong> Shows the shortest distance between the centers of your guessed country and the target country (in km)</p>
+              <p>🧭 <strong>Direction:</strong> The arrow points along the shortest path from your guess towards the target country using 8 directions (N, NE, E, SE, S, SW, W, NW)</p>
             </div>
           </TooltipContent>
         </Tooltip>
