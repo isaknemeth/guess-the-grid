@@ -1,0 +1,19 @@
+@tailwind components;
+
+@layer components {
+  /* Optimize blur effects */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .backdrop-blur-xl {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  /* Optimize animations */
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+}

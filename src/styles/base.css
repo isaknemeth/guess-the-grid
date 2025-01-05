@@ -1,0 +1,16 @@
+@tailwind base;
+
+@layer base {
+  * {
+    @apply border-border;
+    /* Add hardware acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+}
