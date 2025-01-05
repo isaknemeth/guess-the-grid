@@ -6,14 +6,12 @@ interface GuessDistributionProps {
 
 const GuessDistribution = ({ guessesCounts }: GuessDistributionProps) => {
   // Transform the data to separate successful guesses from failed attempts
-  const transformedData = guessesCounts.map(entry => {
-    // If it's the 5th guess and they got it right, keep it as 5
-    // If they didn't get it right (6th attempt), mark it as Failed
-    return {
+  const transformedData = guessesCounts
+    .filter(entry => entry.count > 0) // Only include entries with counts > 0
+    .map(entry => ({
       ...entry,
-      label: entry.guesses === 6 ? 'Failed' : `${entry.guesses}`,
-    };
-  });
+      label: entry.guesses >= 6 ? 'Failed' : `${entry.guesses}`,
+    }));
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
