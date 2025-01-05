@@ -37,11 +37,16 @@ const UserStats = () => {
       if (data) {
         const totalGames = data.length;
         const wins = data.filter(game => game.correct).length;
-        const totalGuesses = data.reduce((sum, game) => sum + game.num_guesses, 0);
         
+        // Only count guesses for correct attempts when calculating average
+        const totalGuesses = data
+          .filter(game => game.correct)
+          .reduce((sum, game) => sum + game.num_guesses, 0);
+        
+        // Count correct guesses for each number of attempts
         const guessesCounts = Array.from({ length: 5 }, (_, i) => ({
           guesses: i + 1,
-          count: data.filter(game => game.num_guesses === i + 1).length
+          count: data.filter(game => game.correct && game.num_guesses === i + 1).length
         }));
 
         const correctCountries = data
@@ -51,7 +56,7 @@ const UserStats = () => {
         setStats({
           totalGames,
           wins,
-          averageGuesses: totalGames > 0 ? +(totalGuesses / totalGames).toFixed(1) : 0,
+          averageGuesses: wins > 0 ? +(totalGuesses / wins).toFixed(1) : 0,
           guessesCounts,
           correctCountries
         });
