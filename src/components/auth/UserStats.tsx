@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 interface Stats {
   totalGames: number;
@@ -15,8 +14,6 @@ interface Stats {
 const UserStats = () => {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -63,50 +60,6 @@ const UserStats = () => {
     fetchStats();
   }, []);
 
-  useEffect(() => {
-    if (!mapContainer.current || !stats?.correctCountries.length) return;
-
-    mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN'; // Replace with your Mapbox token
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/light-v11',
-      center: [0, 20],
-      zoom: 1
-    });
-
-    map.current.on('load', () => {
-      if (!map.current) return;
-
-      // Add a new layer for the countries
-      map.current.addSource('countries', {
-        type: 'vector',
-        url: 'mapbox://mapbox.country-boundaries-v1'
-      });
-
-      // Add a layer to highlight correctly guessed countries
-      map.current.addLayer({
-        id: 'country-fills',
-        type: 'fill',
-        source: 'countries',
-        'source-layer': 'country_boundaries',
-        paint: {
-          'fill-color': [
-            'case',
-            ['in', ['get', 'name_en'], ['literal', stats.correctCountries]],
-            '#4ade80', // Green color for correct countries
-            'transparent'
-          ],
-          'fill-opacity': 0.5
-        }
-      });
-    });
-
-    return () => {
-      map.current?.remove();
-    };
-  }, [stats?.correctCountries]);
-
   if (loading) {
     return <div className="text-center py-4">Loading stats...</div>;
   }
@@ -151,7 +104,40 @@ const UserStats = () => {
 
       {/* World Map */}
       <div className="h-64 rounded-lg overflow-hidden">
-        <div ref={mapContainer} className="w-full h-full" />
+        <ComposableMap
+          projectionConfig={{
+            scale: 147,
+          }}
+          className="w-full h-full"
+        >
+          <Geographies geography="/world-110m.json">
+            {({ geographies }) =>
+              geographies.map((geo) => (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={
+                    stats.correctCountries.includes(geo.properties.NAME)
+                      ? "#4ade80"
+                      : "#D6D6DA"
+                  }
+                  stroke="#FFFFFF"
+                  style={{
+                    default: {
+                      outline: "none",
+                    },
+                    hover: {
+                      outline: "none",
+                      fill: stats.correctCountries.includes(geo.properties.NAME)
+                        ? "#22c55e"
+                        : "#F5F4F6"
+                    },
+                  }}
+                />
+              ))
+            }
+          </Geographies>
+        </ComposableMap>
       </div>
     </div>
   );
