@@ -1,9 +1,8 @@
 import PowerGuessGame from "@/components/PowerGuessGame";
-import { Button } from "@/components/ui/button";
-import { Moon, Sun, Info } from "lucide-react";
-import { useTheme } from "@/hooks/use-theme";
+import { Info } from "lucide-react";
 import countriesData from "@/data/countries.json";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 // Convert the dataset to the required format
@@ -38,26 +37,8 @@ const sampleData = {
 };
 
 const Index = () => {
-  const { theme, setTheme } = useTheme();
-
   return (
     <div className="min-h-screen bg-background transition-colors duration-300 pb-16">
-      {/* Theme Toggle and Auth Button are handled by AuthWrapper */}
-      <div className="fixed top-4 right-16 z-50">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="rounded-full"
-        >
-          {theme === "dark" ? (
-            <Sun className="h-5 w-5" />
-          ) : (
-            <Moon className="h-5 w-5" />
-          )}
-        </Button>
-      </div>
-
       {/* Info Button */}
       <div className="fixed top-4 left-4 z-50">
         <Popover>

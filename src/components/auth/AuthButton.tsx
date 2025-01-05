@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { LogIn, LogOut, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import AuthUI from "./AuthUI";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,7 +17,7 @@ const AuthButton = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
     return (
       <Dialog open={showStats} onOpenChange={setShowStats}>
         <DialogTrigger asChild>
-          <Button variant="outline" size="icon" className="rounded-full">
+          <Button variant="outline" className="rounded-full">
             <User className="h-5 w-5" />
           </Button>
         </DialogTrigger>
@@ -41,8 +41,8 @@ const AuthButton = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon" className="rounded-full">
-          <LogIn className="h-5 w-5" />
+        <Button variant="outline">
+          Log in
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
