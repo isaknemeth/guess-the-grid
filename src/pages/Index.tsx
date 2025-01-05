@@ -1,7 +1,6 @@
 import PowerGuessGame from "@/components/PowerGuessGame";
 import { Button } from "@/components/ui/button";
-import { Moon, Sun, Info} from "lucide-react";
-import { useTheme } from "@/hooks/use-theme";
+import { Info } from "lucide-react";
 import countriesData from "@/data/countries.json";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Link } from "react-router-dom";
@@ -38,26 +37,8 @@ const sampleData = {
 };
 
 const Index = () => {
-  const { theme, setTheme } = useTheme();
-
   return (
     <div className="min-h-screen bg-background transition-colors duration-300">
-      {/* Theme Toggle */}
-      <div className="fixed top-4 right-4 z-50">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="rounded-full"
-        >
-          {theme === "dark" ? (
-            <Sun className="h-5 w-5" />
-          ) : (
-            <Moon className="h-5 w-5" />
-          )}
-        </Button>
-      </div>
-
       {/* Info Button */}
       <div className="fixed top-4 left-4 z-50">
         <Popover>
@@ -79,16 +60,6 @@ const Index = () => {
       </div>
 
       <div className="container max-w-5xl mx-auto px-4 py-8 md:py-12">
-        {/* Header */}
-        <div className="text-center space-y-4 mb-8 md:mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400 dark:from-purple-400 dark:to-purple-200">
-            Power_Guessr
-          </h1>
-          <p className="text-muted-foreground text-base md:text-lg">
-            Guess the country by its electricity generation
-          </p>
-        </div>
-
         {/* Game Container */}
         <div className="relative">
           {/* Background decorative elements */}
