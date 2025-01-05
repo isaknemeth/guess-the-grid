@@ -78,10 +78,7 @@ const UserStats = () => {
 
   return (
     <div className="space-y-4 pb-4">
-      <StatsHeader 
-        correctCountriesCount={stats.correctCountries.length}
-        totalCountries={totalCountries}
-      />
+      
       
       <StatsGrid
         totalGames={stats.totalGames}
@@ -90,7 +87,10 @@ const UserStats = () => {
       />
 
       <GuessDistribution guessesCounts={stats.guessesCounts} />
-      
+      <StatsHeader 
+        correctCountriesCount={stats.correctCountries.length}
+        totalCountries={totalCountries}
+      />
       <MapSection 
         correctCountries={stats.correctCountries}
         userEmail={userEmail}

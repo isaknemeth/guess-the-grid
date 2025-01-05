@@ -6,7 +6,6 @@ interface StatsHeaderProps {
 const StatsHeader = ({ correctCountriesCount, totalCountries }: StatsHeaderProps) => {
   return (
     <>
-      <h2 className="text-lg font-semibold text-center">Your Statistics</h2>
       <div className="text-center">
         <div className="text-2xl font-bold">
           {correctCountriesCount}/{totalCountries}
