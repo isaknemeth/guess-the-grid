@@ -5,6 +5,11 @@ interface GuessDistributionProps {
 }
 
 const GuessDistribution = ({ guessesCounts }: GuessDistributionProps) => {
+  // Calculate total failed attempts (games where user didn't guess correctly)
+  const failedAttempts = guessesCounts.reduce((total, g) => total + g.count, 0);
+  const totalGames = failedAttempts + guessesCounts.reduce((total, g) => total + g.count, 0);
+  const failedGames = totalGames - failedAttempts;
+
   // Transform the data to show correct guesses per attempt number
   // and add a "Failed" category for incorrect attempts
   const transformedData = [
@@ -14,7 +19,7 @@ const GuessDistribution = ({ guessesCounts }: GuessDistributionProps) => {
     })),
     {
       guesses: 6,
-      count: guessesCounts.reduce((total, g) => total + (g.guesses === 5 ? 0 : g.count), 0), // Sum of all incorrect guesses
+      count: failedGames, // Only count games that weren't won
       label: 'Failed'
     }
   ];
