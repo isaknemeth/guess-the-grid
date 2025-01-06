@@ -46,16 +46,23 @@ export const useGameState = (initialTargetCountry: CountryData) => {
           .insert({
             correct,
             num_guesses: numGuesses,
-            country_guessed: countryGuessed,
+            country_guessed: targetCountry.name, // Save the target country name instead of the guessed country
             user_id: session.user.id
           });
 
-        if (error) throw error;
+        if (error) {
+          console.error('Error saving game result:', error);
+          toast({
+            title: "Error saving game result",
+            description: "There was an error saving your game result.",
+            variant: "destructive",
+          });
+        }
       } catch (error) {
         console.error('Error saving game result:', error);
       }
     }
-  }, []);
+  }, [targetCountry.name, toast]);
 
   const handleGuess = useCallback((countryName: string, countries: CountryData[]) => {
     const guessCountry = countries.find(c => c.name === countryName);
@@ -99,7 +106,7 @@ export const useGameState = (initialTargetCountry: CountryData) => {
         description: "You found the correct country!",
       });
       setGameOver(true);
-      saveGameResult(true, newGuesses.length, guessCountry.name);
+      saveGameResult(true, newGuesses.length, targetCountry.name);
     } else if (newGuesses.length >= 5) {
       toast({
         title: "Game Over",
@@ -107,7 +114,7 @@ export const useGameState = (initialTargetCountry: CountryData) => {
         variant: "destructive",
       });
       setGameOver(true);
-      saveGameResult(false, newGuesses.length, guessCountry.name);
+      saveGameResult(false, 5, targetCountry.name);
     }
   }, [guesses, targetCountry, toast, calculateDistance, calculateDirection, saveGameResult]);
 
