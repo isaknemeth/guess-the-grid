@@ -36,7 +36,7 @@ export const useGameState = (initialTargetCountry: CountryData) => {
     return directions[index];
   }, []);
 
-  const saveGameResult = useCallback(async (correct: boolean, numGuesses: number, countryGuessed: string) => {
+  const saveGameResult = useCallback(async (correct: boolean, numGuesses: number) => {
     const { data: { session } } = await supabase.auth.getSession();
     
     if (session?.user?.id) {
@@ -46,7 +46,7 @@ export const useGameState = (initialTargetCountry: CountryData) => {
           .insert({
             correct,
             num_guesses: numGuesses,
-            country_guessed: targetCountry.name, // Save the target country name instead of the guessed country
+            country_guessed: targetCountry.name,
             user_id: session.user.id
           });
 
@@ -106,7 +106,7 @@ export const useGameState = (initialTargetCountry: CountryData) => {
         description: "You found the correct country!",
       });
       setGameOver(true);
-      saveGameResult(true, newGuesses.length, targetCountry.name);
+      saveGameResult(true, newGuesses.length);
     } else if (newGuesses.length >= 5) {
       toast({
         title: "Game Over",
@@ -114,7 +114,7 @@ export const useGameState = (initialTargetCountry: CountryData) => {
         variant: "destructive",
       });
       setGameOver(true);
-      saveGameResult(false, 5, targetCountry.name);
+      saveGameResult(false, 5);
     }
   }, [guesses, targetCountry, toast, calculateDistance, calculateDirection, saveGameResult]);
 
