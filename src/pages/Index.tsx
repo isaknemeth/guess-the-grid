@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { CountryData } from "@/types/game";
 
 // Convert the dataset to the required format
 const countries = Object.keys(countriesData).map((countryName) => {
@@ -38,7 +39,7 @@ export const getRandomCountry = () => {
 
 const Index = () => {
   const [isUnlimitedMode, setIsUnlimitedMode] = useState(false);
-  const [targetCountry, setTargetCountry] = useState(getRandomCountry());
+  const [targetCountry, setTargetCountry] = useState<CountryData | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -68,6 +69,8 @@ const Index = () => {
 
     if (!isUnlimitedMode) {
       fetchDailyCountry();
+    } else {
+      setTargetCountry(getRandomCountry());
     }
   }, [isUnlimitedMode]);
 
@@ -86,6 +89,14 @@ const Index = () => {
       });
     }
   };
+
+  if (!targetCountry) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background transition-colors duration-300 pb-16">
