@@ -7,13 +7,21 @@ import {
 
 interface GameStatusProps {
   remainingGuesses: number;
+  isDaily?: boolean;
 }
 
-const GameStatus = ({ remainingGuesses }: GameStatusProps) => {
+const GameStatus = ({ remainingGuesses, isDaily = false }: GameStatusProps) => {
   return (
     <div className="flex items-center gap-4">
-      <div className="text-sm font-medium">
-        Remaining guesses: {remainingGuesses}
+      <div className="flex flex-col">
+        <div className="text-sm font-medium">
+          Remaining guesses: {remainingGuesses}
+        </div>
+        {isDaily && (
+          <div className="text-xs text-muted-foreground">
+            Daily Challenge
+          </div>
+        )}
       </div>
       
       <Dialog>

@@ -1,9 +1,14 @@
+import { useEffect, useState } from "react";
 import PowerGuessGame from "@/components/PowerGuessGame";
 import { Info } from "lucide-react";
 import countriesData from "@/data/countries.json";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 // Convert the dataset to the required format
 const countries = Object.keys(countriesData).map((countryName) => {
@@ -31,12 +36,57 @@ export const getRandomCountry = () => {
   return countries[randomIndex];
 };
 
-const sampleData = {
-  targetCountry: getRandomCountry(),
-  countries,
-};
-
 const Index = () => {
+  const [isUnlimitedMode, setIsUnlimitedMode] = useState(false);
+  const [targetCountry, setTargetCountry] = useState(getRandomCountry());
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const fetchDailyCountry = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('daily_countries')
+          .select('country_name')
+          .eq('date', new Date().toISOString().split('T')[0])
+          .single();
+
+        if (error) {
+          console.error('Error fetching daily country:', error);
+          return;
+        }
+
+        if (data) {
+          const dailyCountry = countries.find(c => c.name === data.country_name);
+          if (dailyCountry) {
+            setTargetCountry(dailyCountry);
+          }
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    if (!isUnlimitedMode) {
+      fetchDailyCountry();
+    }
+  }, [isUnlimitedMode]);
+
+  const handleModeChange = (checked: boolean) => {
+    setIsUnlimitedMode(checked);
+    if (checked) {
+      setTargetCountry(getRandomCountry());
+      toast({
+        title: "Unlimited Mode",
+        description: "Play as many times as you want!",
+      });
+    } else {
+      toast({
+        title: "Daily Mode",
+        description: "One new country every day!",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background transition-colors duration-300 pb-16">
       {/* Info Button */}
@@ -87,6 +137,18 @@ const Index = () => {
           <p className="text-muted-foreground text-base md:text-lg">
             Guess the country by its electricity generation
           </p>
+          
+          {/* Game Mode Toggle */}
+          <div className="flex items-center justify-center gap-2 pt-4">
+            <Switch
+              id="unlimited-mode"
+              checked={isUnlimitedMode}
+              onCheckedChange={handleModeChange}
+            />
+            <Label htmlFor="unlimited-mode" className="text-sm">
+              Unlimited Mode
+            </Label>
+          </div>
         </div>
 
         {/* Game Container */}
@@ -102,8 +164,9 @@ const Index = () => {
             
             <div className="p-4 md:p-8">
               <PowerGuessGame
-                targetCountry={sampleData.targetCountry}
-                countries={sampleData.countries}
+                targetCountry={targetCountry}
+                countries={countries}
+                isDaily={!isUnlimitedMode}
               />
             </div>
           </div>

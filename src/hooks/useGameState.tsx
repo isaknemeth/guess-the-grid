@@ -4,7 +4,7 @@ import { CountryData, GuessResult } from "@/types/game";
 import { useToast } from "@/components/ui/use-toast";
 import { getRandomCountry } from "@/pages/Index";
 
-export const useGameState = (initialTargetCountry: CountryData) => {
+export const useGameState = (initialTargetCountry: CountryData, isDaily: boolean = false) => {
   const [guesses, setGuesses] = useState<GuessResult[]>([]);
   const [gameOver, setGameOver] = useState(false);
   const [targetCountry, setTargetCountry] = useState<CountryData>(initialTargetCountry);
@@ -47,7 +47,8 @@ export const useGameState = (initialTargetCountry: CountryData) => {
             correct,
             num_guesses: numGuesses,
             country_guessed: targetCountry.name,
-            user_id: session.user.id
+            user_id: session.user.id,
+            is_daily: isDaily
           });
 
         if (error) {
@@ -62,7 +63,7 @@ export const useGameState = (initialTargetCountry: CountryData) => {
         console.error('Error saving game result:', error);
       }
     }
-  }, [targetCountry.name, toast]);
+  }, [targetCountry.name, toast, isDaily]);
 
   const handleGuess = useCallback((countryName: string, countries: CountryData[]) => {
     const guessCountry = countries.find(c => c.name === countryName);
@@ -119,10 +120,12 @@ export const useGameState = (initialTargetCountry: CountryData) => {
   }, [guesses, targetCountry, toast, calculateDistance, calculateDirection, saveGameResult]);
 
   const resetGame = useCallback(() => {
-    setGuesses([]);
-    setGameOver(false);
-    setTargetCountry(getRandomCountry());
-  }, []);
+    if (!isDaily) {
+      setGuesses([]);
+      setGameOver(false);
+      setTargetCountry(getRandomCountry());
+    }
+  }, [isDaily]);
 
   return {
     guesses,

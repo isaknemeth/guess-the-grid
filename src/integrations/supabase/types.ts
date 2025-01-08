@@ -9,12 +9,34 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      daily_countries: {
+        Row: {
+          country_name: string
+          created_at: string
+          date: string
+          id: string
+        }
+        Insert: {
+          country_name: string
+          created_at?: string
+          date?: string
+          id?: string
+        }
+        Update: {
+          country_name?: string
+          created_at?: string
+          date?: string
+          id?: string
+        }
+        Relationships: []
+      }
       game_results: {
         Row: {
           correct: boolean
           country_guessed: string
           created_at: string
           id: string
+          is_daily: boolean
           num_guesses: number
           user_id: string
         }
@@ -23,6 +45,7 @@ export type Database = {
           country_guessed: string
           created_at?: string
           id?: string
+          is_daily?: boolean
           num_guesses: number
           user_id: string
         }
@@ -31,6 +54,7 @@ export type Database = {
           country_guessed?: string
           created_at?: string
           id?: string
+          is_daily?: boolean
           num_guesses?: number
           user_id?: string
         }
@@ -67,7 +91,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_random_country: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      set_next_daily_country: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

@@ -11,12 +11,13 @@ import SettingsDialog from "./settings/SettingsDialog";
 interface PowerGuessGameProps {
   targetCountry: CountryData;
   countries: CountryData[];
+  isDaily?: boolean;
 }
 
-const PowerGuessGame = memo(({ targetCountry: initialTargetCountry, countries }: PowerGuessGameProps) => {
+const PowerGuessGame = memo(({ targetCountry: initialTargetCountry, countries, isDaily = false }: PowerGuessGameProps) => {
   const [showDistances, setShowDistances] = useState(true);
   const [showDirections, setShowDirections] = useState(true);
-  const { guesses, gameOver, targetCountry, handleGuess, resetGame } = useGameState(initialTargetCountry);
+  const { guesses, gameOver, targetCountry, handleGuess, resetGame } = useGameState(initialTargetCountry, isDaily);
 
   return (
     <div className="w-full">
@@ -34,7 +35,7 @@ const PowerGuessGame = memo(({ targetCountry: initialTargetCountry, countries }:
       
       <div className="mt-6 space-y-4">
         <div className="flex items-center justify-between">
-          <GameStatus remainingGuesses={5 - guesses.length} />
+          <GameStatus remainingGuesses={5 - guesses.length} isDaily={isDaily} />
           <SettingsDialog
             showDistances={showDistances}
             setShowDistances={setShowDistances}
@@ -58,7 +59,7 @@ const PowerGuessGame = memo(({ targetCountry: initialTargetCountry, countries }:
         {gameOver && (
           <GameOver
             targetCountry={targetCountry.name}
-            onReset={resetGame}
+            onReset={isDaily ? undefined : resetGame}
           />
         )}
       </div>
