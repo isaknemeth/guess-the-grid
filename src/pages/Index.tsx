@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { CountryData } from "@/types/game";
 
 // Convert the dataset to the required format
@@ -70,6 +70,7 @@ const Index = () => {
     if (!isUnlimitedMode) {
       fetchDailyCountry();
     } else {
+      // Always get a new random country when switching to unlimited mode
       setTargetCountry(getRandomCountry());
     }
   }, [isUnlimitedMode]);

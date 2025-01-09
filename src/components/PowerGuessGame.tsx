@@ -60,6 +60,7 @@ const PowerGuessGame = memo(({ targetCountry: initialTargetCountry, countries, i
           <GameOver
             targetCountry={targetCountry.name}
             onReset={isDaily ? undefined : resetGame}
+            isDaily={isDaily}
           />
         )}
       </div>
