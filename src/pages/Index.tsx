@@ -40,8 +40,10 @@ export const getRandomCountry = () => {
 const Index = () => {
   const [isUnlimitedMode, setIsUnlimitedMode] = useState(false);
   const [targetCountry, setTargetCountry] = useState<CountryData | null>(null);
+  const [dailyCountry, setDailyCountry] = useState<CountryData | null>(null);
   const { toast } = useToast();
 
+  // Fetch daily country only once when component mounts
   useEffect(() => {
     const fetchDailyCountry = async () => {
       try {
@@ -59,6 +61,7 @@ const Index = () => {
         if (data) {
           const dailyCountry = countries.find(c => c.name === data.country_name);
           if (dailyCountry) {
+            setDailyCountry(dailyCountry);
             setTargetCountry(dailyCountry);
           }
         }
@@ -67,23 +70,21 @@ const Index = () => {
       }
     };
 
-    if (!isUnlimitedMode) {
-      fetchDailyCountry();
-    } else {
-      // Always get a new random country when switching to unlimited mode
-      setTargetCountry(getRandomCountry());
-    }
-  }, [isUnlimitedMode]);
+    fetchDailyCountry();
+  }, []); // Only run once on mount
 
   const handleModeChange = (checked: boolean) => {
     setIsUnlimitedMode(checked);
     if (checked) {
+      // Switch to unlimited mode - always get a new random country
       setTargetCountry(getRandomCountry());
       toast({
         title: "Unlimited Mode",
         description: "Play as many times as you want!",
       });
     } else {
+      // Switch back to daily mode - restore the daily country
+      setTargetCountry(dailyCountry);
       toast({
         title: "Daily Mode",
         description: "One new country every day!",
