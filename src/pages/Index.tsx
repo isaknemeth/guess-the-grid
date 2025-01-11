@@ -62,7 +62,9 @@ const Index = () => {
           const dailyCountry = countries.find(c => c.name === data.country_name);
           if (dailyCountry) {
             setDailyCountry(dailyCountry);
-            setTargetCountry(dailyCountry);
+            if (!isUnlimitedMode) {
+              setTargetCountry(dailyCountry);
+            }
           }
         }
       } catch (error) {
@@ -76,14 +78,17 @@ const Index = () => {
   const handleModeChange = (checked: boolean) => {
     setIsUnlimitedMode(checked);
     if (checked) {
-      // Switch to unlimited mode - always get a new random country
-      setTargetCountry(getRandomCountry());
+      // Force a new random country when switching to unlimited mode
+      const newCountry = getRandomCountry();
+      console.log("Switching to unlimited mode with new country:", newCountry.name);
+      setTargetCountry(newCountry);
       toast({
         title: "Unlimited Mode",
         description: "Play as many times as you want!",
       });
     } else {
       // Switch back to daily mode - restore the daily country
+      console.log("Switching back to daily mode with country:", dailyCountry?.name);
       setTargetCountry(dailyCountry);
       toast({
         title: "Daily Mode",
@@ -177,6 +182,7 @@ const Index = () => {
             
             <div className="p-4 md:p-8">
               <PowerGuessGame
+                key={targetCountry.name} // Add key to force re-render when country changes
                 targetCountry={targetCountry}
                 countries={countries}
                 isDaily={!isUnlimitedMode}
