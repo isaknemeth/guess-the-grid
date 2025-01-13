@@ -14,7 +14,8 @@
             "Biofuel": 1.441
         },
         "latitude": -38.416097,
-        "longitude": -63.616672
+        "longitude": -63.616672,
+        "borders": ["Bolivia", "Brazil", "Paraguay", "Chile"]
     },
     "Australia": {
         "Electricity": {
@@ -31,7 +32,8 @@
             "Biofuel": 1.212
         },
         "latitude": -25.274398,
-        "longitude": 133.775136
+        "longitude": 133.775136,
+        "borders": []
     },
     "Austria": {
         "Electricity": {
@@ -48,7 +50,8 @@
             "Biofuel": 5.596
         },
         "latitude": 47.516231,
-        "longitude": 14.550072
+        "longitude": 14.550072,
+        "borders": ["Germany", "Czechia", "Slovakia", "Hungary", "Slovenia", "Italy", "Switzerland"]
     },
     "Bangladesh": {
         "Electricity": {
@@ -65,7 +68,8 @@
             "Biofuel": 0.035
         },
         "latitude": 23.684994,
-        "longitude": 90.356331
+        "longitude": 90.356331,
+        "borders": ["India", "Myanmar"]
     },
     "Belgium": {
         "Electricity": {
@@ -82,7 +86,8 @@
             "Biofuel": 4.705
         },
         "latitude": 50.503887,
-        "longitude": 4.469936
+        "longitude": 4.469936,
+        "borders": ["France", "Germany", "Netherlands", "Luxembourg"]
     },
     "Bolivia": {
         "Electricity": {
@@ -99,7 +104,8 @@
             "Biofuel": 5.146
         },
         "latitude": -16.290154,
-        "longitude": -63.588653
+        "longitude": -63.588653,
+        "borders": ["Brazil", "Paraguay", "Argentina", "Chile", "Peru"]
     },
     "Bosnia and Herzegovina": {
         "Electricity": {
@@ -116,7 +122,8 @@
             "Biofuel": 0.062
         },
         "latitude": 43.915886,
-        "longitude": 17.679076
+        "longitude": 17.679076,
+        "borders": ["Croatia", "Serbia", "Montenegro"]
     },
     "Brazil": {
         "Electricity": {
@@ -133,7 +140,8 @@
             "Biofuel": 8.433
         },
         "latitude": -14.235004,
-        "longitude": -51.92528
+        "longitude": -51.92528,
+        "borders": ["Argentina", "Paraguay", "Bolivia", "Peru", "Colombia", "Venezuela", "Guyana", "Suriname", "French Guiana"]
     },
     "Bulgaria": {
         "Electricity": {
@@ -150,7 +158,8 @@
             "Biofuel": 5.14
         },
         "latitude": 42.733883,
-        "longitude": 25.48583
+        "longitude": 25.48583,
+        "borders": ["Romania", "Serbia", "North Macedonia", "Greece", "Turkey"]
     },
     "Burundi": {
         "Electricity": {
@@ -167,7 +176,8 @@
             "Biofuel": 2.778
         },
         "latitude": -3.373056,
-        "longitude": 29.918886
+        "longitude": 29.918886,
+        "borders": ["Rwanda", "Tanzania"]
     },
     "Canada": {
         "Electricity": {
@@ -184,7 +194,8 @@
             "Biofuel": 1.419
         },
         "latitude": 56.130366,
-        "longitude": -106.346771
+        "longitude": -106.346771,
+        "borders": ["United States"]
     },
     "Chile": {
         "Electricity": {
@@ -201,7 +212,8 @@
             "Biofuel": null
         },
         "latitude": -35.675147,
-        "longitude": -71.542969
+        "longitude": -71.542969,
+        "borders": ["Peru", "Argentina"]
     },
     "China": {
         "Electricity": {
@@ -218,7 +230,8 @@
             "Biofuel": 1.947
         },
         "latitude": 35.86166,
-        "longitude": 104.195397
+        "longitude": 104.195397,
+        "borders": ["Mongolia", "Russia", "India", "Nepal", "Bhutan", "Pakistan", "Afghanistan", "Tajikistan", "Kyrgyzstan", "Kazakhstan", "North Korea", "Vietnam", "Laos", "Myanmar"]
     },
     "Colombia": {
         "Electricity": {
@@ -235,7 +248,8 @@
             "Biofuel": 1.467
         },
         "latitude": 4.570868,
-        "longitude": -74.297333
+        "longitude": -74.297333,
+        "borders": ["Venezuela", "Brazil", "Peru"]
     },
     "Costa Rica": {
         "Electricity": {
@@ -252,7 +266,8 @@
             "Biofuel": 0.158
         },
         "latitude": 9.748917,
-        "longitude": -83.753428
+        "longitude": -83.753428,
+        "borders": ["Nicaragua", "Panama"]
     },
     "Croatia": {
         "Electricity": {
@@ -269,7 +284,8 @@
             "Biofuel": 8.215
         },
         "latitude": 45.1,
-        "longitude": 15.2
+        "longitude": 15.2,
+        "borders": ["Slovenia", "Hungary", "Bosnia and Herzegovina", "Serbia"]
     },
     "Cyprus": {
         "Electricity": {
@@ -286,7 +302,8 @@
             "Biofuel": 1.141
         },
         "latitude": 35.126413,
-        "longitude": 33.429859
+        "longitude": 33.429859,
+        "borders": []
     },
     "Czechia": {
         "Electricity": {
@@ -303,7 +320,8 @@
             "Biofuel": 6.239
         },
         "latitude": 49.817492,
-        "longitude": 15.472962
+        "longitude": 15.472962,
+        "borders": ["Germany", "Poland", "Slovakia", "Austria"]
     },
     "Denmark": {
         "Electricity": {
@@ -320,7 +338,8 @@
             "Biofuel": 23.097
         },
         "latitude": 56.26392,
-        "longitude": 9.501785
+        "longitude": 9.501785,
+        "borders": ["Germany"]
     },
     "Ecuador": {
         "Electricity": {
@@ -337,7 +356,8 @@
             "Biofuel": 1.057
         },
         "latitude": -1.831239,
-        "longitude": -78.183406
+        "longitude": -78.183406,
+        "borders": ["Colombia", "Peru"]
     },
     "Egypt": {
         "Electricity": {
@@ -354,7 +374,8 @@
             "Biofuel": 0.0
         },
         "latitude": 26.820553,
-        "longitude": 30.802498
+        "longitude": 30.802498,
+        "borders": ["Libya", "Sudan"]
     },
     "El Salvador": {
         "Electricity": {
@@ -371,7 +392,8 @@
             "Biofuel": 5.906
         },
         "latitude": 13.794185,
-        "longitude": -88.89653
+        "longitude": -88.89653,
+        "borders": ["Guatemala", "Honduras"]
     },
     "Estonia": {
         "Electricity": {
@@ -388,7 +410,8 @@
             "Biofuel": 29.856
         },
         "latitude": 58.595272,
-        "longitude": 25.013607
+        "longitude": 25.013607,
+        "borders": ["Latvia", "Russia"]
     },
     "Finland": {
         "Electricity": {
@@ -405,7 +428,8 @@
             "Biofuel": 19.085
         },
         "latitude": 61.92411,
-        "longitude": 25.748151
+        "longitude": 25.748151,
+        "borders": ["Sweden", "Norway", "Russia"]
     },
     "France": {
         "Electricity": {
@@ -422,7 +446,8 @@
             "Biofuel": 2.134
         },
         "latitude": 46.227638,
-        "longitude": 2.213749
+        "longitude": 2.213749,
+        "borders": ["Belgium", "Luxembourg", "Germany", "Switzerland", "Italy", "Monaco", "Spain", "Andorra"]
     },
     "Georgia": {
         "Electricity": {
@@ -439,7 +464,8 @@
             "Biofuel": 0.0
         },
         "latitude": 42.315407,
-        "longitude": 43.356892
+        "longitude": 43.356892,
+        "borders": ["Russia", "Azerbaijan", "Armenia", "Turkey"]
     },
     "Germany": {
         "Electricity": {
@@ -456,7 +482,8 @@
             "Biofuel": 8.123
         },
         "latitude": 51.165691,
-        "longitude": 10.451526
+        "longitude": 10.451526,
+        "borders": ["Denmark", "Poland", "Czechia", "Austria", "Switzerland", "France", "Luxembourg", "Belgium", "Netherlands"]
     },
     "Greece": {
         "Electricity": {
@@ -473,7 +500,8 @@
             "Biofuel": 0.953
         },
         "latitude": 39.074208,
-        "longitude": 21.824312
+        "longitude": 21.824312,
+        "borders": ["Albania", "North Macedonia", "Bulgaria", "Turkey"]
     },
     "Hungary": {
         "Electricity": {
@@ -490,7 +518,8 @@
             "Biofuel": 6.334
         },
         "latitude": 47.162494,
-        "longitude": 19.503304
+        "longitude": 19.503304,
+        "borders": ["Austria", "Slovakia", "Ukraine", "Romania", "Serbia", "Croatia"]
     },
     "Iceland": {
         "Electricity": {
@@ -507,7 +536,8 @@
             "Biofuel": null
         },
         "latitude": 64.963051,
-        "longitude": -19.020835
+        "longitude": -19.020835,
+        "borders": []
     },
     "India": {
         "Electricity": {
@@ -524,7 +554,8 @@
             "Biofuel": 1.986
         },
         "latitude": 20.593684,
-        "longitude": 78.96288
+        "longitude": 78.96288,
+        "borders": ["Pakistan", "China", "Nepal", "Bhutan", "Bangladesh", "Myanmar"]
     },
     "Indonesia": {
         "Electricity": {
@@ -541,7 +572,8 @@
             "Biofuel": 6.188
         },
         "latitude": -0.789275,
-        "longitude": 113.921327
+        "longitude": 113.921327,
+        "borders": []
     },
     "Iran": {
         "Electricity": {
@@ -558,7 +590,8 @@
             "Biofuel": 0.003
         },
         "latitude": 32.427908,
-        "longitude": 53.688046
+        "longitude": 53.688046,
+        "borders": ["Turkey", "Armenia", "Azerbaijan", "Turkmenistan", "Afghanistan", "Pakistan"]
     },
     "Ireland": {
         "Electricity": {
@@ -575,7 +608,8 @@
             "Biofuel": 2.946
         },
         "latitude": 53.41291,
-        "longitude": -8.24389
+        "longitude": -8.24389,
+        "borders": []
     },
     "Italy": {
         "Electricity": {
@@ -592,7 +626,8 @@
             "Biofuel": 6.591
         },
         "latitude": 41.87194,
-        "longitude": 12.56738
+        "longitude": 12.56738,
+        "borders": ["France", "Monaco", "Switzerland", "Austria", "Slovenia", "San Marino", "Vatican City"]
     },
     "Japan": {
         "Electricity": {
@@ -609,7 +644,8 @@
             "Biofuel": 4.537
         },
         "latitude": 36.204824,
-        "longitude": 138.252924
+        "longitude": 138.252924,
+        "borders": []
     },
     "Kazakhstan": {
         "Electricity": {
@@ -626,7 +662,8 @@
             "Biofuel": 0.0
         },
         "latitude": 48.019573,
-        "longitude": 66.923684
+        "longitude": 66.923684,
+        "borders": ["Russia", "China", "Kyrgyzstan", "Uzbekistan", "Turkmenistan"]
     },
     "Kenya": {
         "Electricity": {
@@ -643,7 +680,8 @@
             "Biofuel": 1.298
         },
         "latitude": -0.023559,
-        "longitude": 37.906193
+        "longitude": 37.906193,
+        "borders": ["South Sudan", "Uganda", "Tanzania", "Somalia", "Ethiopia"]
     },
     "Latvia": {
         "Electricity": {
@@ -660,7 +698,8 @@
             "Biofuel": 13.439
         },
         "latitude": 56.879635,
-        "longitude": 24.603189
+        "longitude": 24.603189,
+        "borders": ["Estonia", "Lithuania", "Russia"]
     },
     "Lithuania": {
         "Electricity": {
@@ -677,7 +716,8 @@
             "Biofuel": 15.588
         },
         "latitude": 55.169438,
-        "longitude": 23.881275
+        "longitude": 23.881275,
+        "borders": ["Latvia", "Poland", "Belarus", "Russia"]
     },
     "Luxembourg": {
         "Electricity": {
@@ -694,7 +734,8 @@
             "Biofuel": 32.743
         },
         "latitude": 49.815273,
-        "longitude": 6.129583
+        "longitude": 6.129583,
+        "borders": ["Belgium", "Germany", "France"]
     },
     "Malaysia": {
         "Electricity": {
@@ -711,7 +752,8 @@
             "Biofuel": 0.909
         },
         "latitude": 4.210484,
-        "longitude": 101.975766
+        "longitude": 101.975766,
+        "borders": ["Thailand", "Brunei", "Indonesia"]
     },
     "Malta": {
         "Electricity": {
@@ -728,7 +770,8 @@
             "Biofuel": 0.5
         },
         "latitude": 35.937496,
-        "longitude": 14.375416
+        "longitude": 14.375416,
+        "borders": []
     },
     "Mexico": {
         "Electricity": {
@@ -745,7 +788,8 @@
             "Biofuel": 1.94
         },
         "latitude": 23.634501,
-        "longitude": -102.552784
+        "longitude": -102.552784,
+        "borders": ["United States", "Belize", "Guatemala"]
     },
     "Moldova": {
         "Electricity": {
@@ -762,7 +806,8 @@
             "Biofuel": 0.186
         },
         "latitude": 47.411631,
-        "longitude": 28.369885
+        "longitude": 28.369885,
+        "borders": ["Romania", "Ukraine"]
     },
     "Mongolia": {
         "Electricity": {
@@ -779,7 +824,8 @@
             "Biofuel": 0.0
         },
         "latitude": 46.862496,
-        "longitude": 103.846656
+        "longitude": 103.846656,
+        "borders": ["Russia", "China"]
     },
     "Montenegro": {
         "Electricity": {
@@ -796,7 +842,8 @@
             "Biofuel": 0.0
         },
         "latitude": 42.708678,
-        "longitude": 19.37439
+        "longitude": 19.37439,
+        "borders": ["Croatia", "Bosnia and Herzegovina", "Serbia", "Albania"]
     },
     "Netherlands": {
         "Electricity": {
@@ -813,7 +860,8 @@
             "Biofuel": 8.016
         },
         "latitude": 52.132633,
-        "longitude": 5.291266
+        "longitude": 5.291266,
+        "borders": ["Germany", "Belgium"]
     },
     "New Zealand": {
         "Electricity": {
@@ -830,7 +878,8 @@
             "Biofuel": 1.043
         },
         "latitude": -40.900557,
-        "longitude": 174.885971
+        "longitude": 174.885971,
+        "borders": []
     },
     "Nigeria": {
         "Electricity": {
@@ -847,7 +896,8 @@
             "Biofuel": 0.062
         },
         "latitude": 9.081999,
-        "longitude": 8.675277
+        "longitude": 8.675277,
+        "borders": ["Benin", "Niger", "Chad", "Cameroon"]
     },
     "North Macedonia": {
         "Electricity": {
@@ -864,7 +914,8 @@
             "Biofuel": 0.715
         },
         "latitude": 41.608635,
-        "longitude": 21.745275
+        "longitude": 21.745275,
+        "borders": ["Kosovo", "Serbia", "Bulgaria", "Greece", "Albania"]
     },
     "Norway": {
         "Electricity": {
@@ -881,7 +932,8 @@
             "Biofuel": 0.144
         },
         "latitude": 60.472024,
-        "longitude": 8.468946
+        "longitude": 8.468946,
+        "borders": ["Sweden", "Finland", "Russia"]
     },
     "Oman": {
         "Electricity": {
@@ -898,7 +950,8 @@
             "Biofuel": 0.0
         },
         "latitude": 21.512583,
-        "longitude": 55.923255
+        "longitude": 55.923255,
+        "borders": ["Yemen", "UAE"]
     },
     "Pakistan": {
         "Electricity": {
@@ -915,7 +968,8 @@
             "Biofuel": 1.111
         },
         "latitude": 30.375321,
-        "longitude": 69.345116
+        "longitude": 69.345116,
+        "borders": ["India", "Afghanistan", "Iran"]
     },
     "Peru": {
         "Electricity": {
@@ -932,7 +986,8 @@
             "Biofuel": 1.145
         },
         "latitude": -9.189967,
-        "longitude": -75.015152
+        "longitude": -75.015152,
+        "borders": ["Ecuador", "Colombia", "Brazil", "Bolivia", "Chile"]
     },
     "Philippines": {
         "Electricity": {
@@ -949,7 +1004,8 @@
             "Biofuel": 2.005
         },
         "latitude": 12.879721,
-        "longitude": 121.774017
+        "longitude": 121.774017,
+        "borders": []
     },
     "Poland": {
         "Electricity": {
@@ -966,7 +1022,8 @@
             "Biofuel": 4.328
         },
         "latitude": 51.919438,
-        "longitude": 19.145136
+        "longitude": 19.145136,
+        "borders": ["Germany", "Czechia", "Slovakia", "Ukraine", "Lithuania", "Belarus"]
     },
     "Portugal": {
         "Electricity": {
@@ -983,7 +1040,8 @@
             "Biofuel": 8.475
         },
         "latitude": 39.399872,
-        "longitude": -8.224454
+        "longitude": -8.224454,
+        "borders": ["Spain"]
     },
     "Qatar": {
         "Electricity": {
@@ -1000,7 +1058,8 @@
             "Biofuel": 0.044
         },
         "latitude": 25.354826,
-        "longitude": 51.183884
+        "longitude": 51.183884,
+        "borders": ["Saudi Arabia"]
     },
     "Romania": {
         "Electricity": {
@@ -1017,7 +1076,8 @@
             "Biofuel": 1.137
         },
         "latitude": 45.943161,
-        "longitude": 24.96676
+        "longitude": 24.96676,
+        "borders": ["Ukraine", "Moldova", "Hungary", "Serbia", "Bulgaria"]
     },
     "Russia": {
         "Electricity": {
@@ -1034,7 +1094,8 @@
             "Biofuel": 0.044
         },
         "latitude": 61.52401,
-        "longitude": 105.318756
+        "longitude": 105.318756,
+        "borders": ["Norway", "Finland", "Estonia", "Latvia", "Lithuania", "Poland", "Belarus", "Ukraine", "Georgia", "Azerbaijan", "Kazakhstan", "China", "Mongolia", "North Korea"]
     },
     "Saudi Arabia": {
         "Electricity": {
@@ -1051,7 +1112,8 @@
             "Biofuel": null
         },
         "latitude": 23.885942,
-        "longitude": 45.079162
+        "longitude": 45.079162,
+        "borders": ["Jordan", "Iraq", "Kuwait", "Qatar", "UAE", "Oman", "Yemen"]
     },
     "Serbia": {
         "Electricity": {
@@ -1068,7 +1130,8 @@
             "Biofuel": 0.636
         },
         "latitude": 44.016521,
-        "longitude": 21.005859
+        "longitude": 21.005859,
+        "borders": ["Hungary", "Romania", "Bulgaria", "North Macedonia", "Croatia", "Bosnia and Herzegovina", "Montenegro"]
     },
     "Singapore": {
         "Electricity": {
@@ -1085,7 +1148,8 @@
             "Biofuel": 0.694
         },
         "latitude": 1.352083,
-        "longitude": 103.819836
+        "longitude": 103.819836,
+        "borders": []
     },
     "Slovakia": {
         "Electricity": {
@@ -1102,7 +1166,8 @@
             "Biofuel": 6.397
         },
         "latitude": 48.669026,
-        "longitude": 19.699024
+        "longitude": 19.699024,
+        "borders": ["Czechia", "Austria", "Hungary", "Poland", "Ukraine"]
     },
     "Slovenia": {
         "Electricity": {
@@ -1119,7 +1184,8 @@
             "Biofuel": 2.185
         },
         "latitude": 46.151241,
-        "longitude": 14.995463
+        "longitude": 14.995463,
+        "borders": ["Austria", "Italy", "Hungary", "Croatia"]
     },
     "South Africa": {
         "Electricity": {
@@ -1136,7 +1202,8 @@
             "Biofuel": 0.187
         },
         "latitude": -30.559482,
-        "longitude": 22.937506
+        "longitude": 22.937506,
+        "borders": ["Namibia", "Botswana", "Zimbabwe", "Mozambique", "Eswatini", "Lesotho"]
     },
     "South Korea": {
         "Electricity": {
@@ -1153,7 +1220,8 @@
             "Biofuel": 3.08
         },
         "latitude": 35.907757,
-        "longitude": 127.766922
+        "longitude": 127.766922,
+        "borders": ["North Korea"]
     },
     "Spain": {
         "Electricity": {
@@ -1170,7 +1238,8 @@
             "Biofuel": 2.395
         },
         "latitude": 40.463667,
-        "longitude": -3.74922
+        "longitude": -3.74922,
+        "borders": ["France", "Portugal", "Andorra"]
     },
     "Sri Lanka": {
         "Electricity": {
@@ -1187,7 +1256,8 @@
             "Biofuel": null
         },
         "latitude": 7.873054,
-        "longitude": 80.771797
+        "longitude": 80.771797,
+        "borders": []
     },
     "Sweden": {
         "Electricity": {
@@ -1204,7 +1274,8 @@
             "Biofuel": 7.374
         },
         "latitude": 60.128161,
-        "longitude": 18.643501
+        "longitude": 18.643501,
+        "borders": ["Norway", "Finland"]
     },
     "Switzerland": {
         "Electricity": {
@@ -1221,7 +1292,8 @@
             "Biofuel": 0.177
         },
         "latitude": 46.818188,
-        "longitude": 8.227512
+        "longitude": 8.227512,
+        "borders": ["France", "Germany", "Austria", "Italy", "Liechtenstein"]
     },
     "Taiwan": {
         "Electricity": {
@@ -1238,7 +1310,8 @@
             "Biofuel": 0.688
         },
         "latitude": 23.69781,
-        "longitude": 120.960515
+        "longitude": 120.960515,
+        "borders": []
     },
     "Thailand": {
         "Electricity": {
@@ -1255,7 +1328,8 @@
             "Biofuel": 7.528
         },
         "latitude": 15.870032,
-        "longitude": 100.992541
+        "longitude": 100.992541,
+        "borders": ["Myanmar", "Laos", "Cambodia"]
     },
     "Tunisia": {
         "Electricity": {
@@ -1272,7 +1346,8 @@
             "Biofuel": 0.0
         },
         "latitude": 33.886917,
-        "longitude": 9.537499
+        "longitude": 9.537499,
+        "borders": ["Algeria", "Libya"]
     },
     "Turkey": {
         "Electricity": {
@@ -1289,7 +1364,8 @@
             "Biofuel": 2.423
         },
         "latitude": 38.963745,
-        "longitude": 35.243322
+        "longitude": 35.243322,
+        "borders": ["Greece", "Bulgaria", "Georgia", "Armenia", "Azerbaijan", "Iran", "Iraq", "Syria"]
     },
     "Ukraine": {
         "Electricity": {
@@ -1306,7 +1382,8 @@
             "Biofuel": 0.679
         },
         "latitude": 48.379433,
-        "longitude": 31.16558
+        "longitude": 31.16558,
+        "borders": ["Belarus", "Russia", "Poland", "Slovakia", "Hungary", "Romania", "Moldova"]
     },
     "United Arab Emirates": {
         "Electricity": {
@@ -1323,7 +1400,8 @@
             "Biofuel": null
         },
         "latitude": 23.424076,
-        "longitude": 53.847818
+        "longitude": 53.847818,
+        "borders": ["Saudi Arabia", "Oman"]
     },
     "United Kingdom": {
         "Electricity": {
@@ -1340,7 +1418,8 @@
             "Biofuel": 10.791
         },
         "latitude": 55.378051,
-        "longitude": -3.435973
+        "longitude": -3.435973,
+        "borders": ["Ireland"]
     },
     "United States": {
         "Electricity": {
@@ -1357,7 +1436,8 @@
             "Biofuel": 1.244
         },
         "latitude": 37.09024,
-        "longitude": -95.712891
+        "longitude": -95.712891,
+        "borders": ["Canada", "Mexico"]
     },
     "Uruguay": {
         "Electricity": {
@@ -1374,7 +1454,8 @@
             "Biofuel": 10.462
         },
         "latitude": -32.522779,
-        "longitude": -55.765835
+        "longitude": -55.765835,
+        "borders": ["Brazil", "Argentina"]
     },
     "Vietnam": {
         "Electricity": {
@@ -1391,6 +1472,7 @@
             "Biofuel": 0.061
         },
         "latitude": 14.058324,
-        "longitude": 108.277199
+        "longitude": 108.277199,
+        "borders": ["China", "Laos", "Cambodia"]
     }
 }

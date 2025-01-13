@@ -2,6 +2,7 @@ export interface CountryData {
   name: string;
   latitude: number;
   longitude: number;
+  borders?: string[];
   energyMix: {
     hydro?: number;
     wind?: number;

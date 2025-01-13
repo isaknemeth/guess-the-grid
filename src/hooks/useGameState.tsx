@@ -10,13 +10,20 @@ export const useGameState = (initialTargetCountry: CountryData, isDaily: boolean
   const [targetCountry, setTargetCountry] = useState<CountryData>(initialTargetCountry);
   const { toast } = useToast();
 
-  const calculateDistance = useCallback((lat1: number, lon1: number, lat2: number, lon2: number) => {
+  const calculateDistance = useCallback((guessCountry: CountryData, targetCountry: CountryData) => {
+    // If countries share a border, distance is 0
+    if (guessCountry.borders?.includes(targetCountry.name) || 
+        targetCountry.borders?.includes(guessCountry.name)) {
+      return 0;
+    }
+
+    // Otherwise calculate the distance between centers
     const R = 6371;
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const dLat = (targetCountry.latitude - guessCountry.latitude) * Math.PI / 180;
+    const dLon = (targetCountry.longitude - guessCountry.longitude) * Math.PI / 180;
     const a = 
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+      Math.cos(guessCountry.latitude * Math.PI / 180) * Math.cos(targetCountry.latitude * Math.PI / 180) * 
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
@@ -77,12 +84,7 @@ export const useGameState = (initialTargetCountry: CountryData, isDaily: boolean
       return;
     }
 
-    const distance = calculateDistance(
-      guessCountry.latitude,
-      guessCountry.longitude,
-      targetCountry.latitude,
-      targetCountry.longitude
-    );
+    const distance = calculateDistance(guessCountry, targetCountry);
 
     const direction = calculateDirection(
       guessCountry.latitude,
