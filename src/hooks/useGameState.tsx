@@ -18,7 +18,12 @@ export const useGameState = (initialTargetCountry: CountryData, isDaily: boolean
     fetch("/world-110m.json")
       .then(response => response.json())
       .then(topology => {
-        const geojson = feature(topology, topology.objects.countries) as FeatureCollection;
+        const features = feature(topology, topology.objects.countries);
+        // Create a proper FeatureCollection
+        const geojson: FeatureCollection = {
+          type: "FeatureCollection",
+          features: Array.isArray(features) ? features : [features]
+        };
         setWorldData(geojson);
       })
       .catch(error => {
